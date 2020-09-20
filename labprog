@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT=fpafumi
+PROJECT=votes
 
 if [ -z "$PROJECT" ]
 then
