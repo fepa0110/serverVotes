@@ -3,7 +3,7 @@ version: '3.7'
 
 services:
   server:
-    image: votes/server
+    image: labprog/server
     # container_name: labprog-server
     command: ant start-docker
     restart: always

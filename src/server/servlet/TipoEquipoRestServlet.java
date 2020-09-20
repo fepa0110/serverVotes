@@ -39,7 +39,7 @@ public class TipoEquipoRestServlet {
         mapper = new ObjectMapper();
     }
 
-    @GET
+    /* @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String findAll(@DefaultValue("1") @QueryParam("page") Integer page,
         @DefaultValue("10") @QueryParam("cant") Integer cant) throws IOException{
@@ -59,7 +59,7 @@ public class TipoEquipoRestServlet {
         }
 
         return ResponseMessage.message(200,"Tipos de equipo recuperados con éxito",data);
-    }
+    }*/
 
     @GET
     @Path("/{id}")
