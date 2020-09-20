@@ -11,11 +11,8 @@ import java.util.List;
 import java.util.Collection;
 
 import model.TipoEquipo;
-import model.Producto;
-import model.Taller;
 
 import stateless.TipoEquipoService;
-import stateless.ResultsPage;
 
 @Stateless
 public class TipoEquipoServiceBean implements TipoEquipoService{

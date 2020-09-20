@@ -17,14 +17,6 @@ import javax.persistence.JoinColumn;
          query="SELECT tequipo "+ 
                "FROM TipoEquipo tequipo "+
                "WHERE tequipo.id= :tipoEquipo_id"),
-      @NamedQuery(name="TipoEquipo.findByProducto",
-         query="SELECT DISTINCT tequipo "+ 
-               "FROM Producto p JOIN p.tareas t JOIN t.tipoEquipo tequipo "+
-               "WHERE p.id= :producto_id"),
-      @NamedQuery(name="TipoEquipo.findByTaller",
-         query="SELECT DISTINCT tequipo "+ 
-               "FROM Taller taller JOIN taller.equipos equipos JOIN equipos.tipoEquipo tequipo "+
-               "WHERE taller.id= :taller_id"),
 })
 
 @Entity
