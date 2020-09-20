@@ -1,0 +1,16 @@
+<label for="{{nombre}}" class="col-form-label col-md-2">
+    {{label}}
+</label>
+<div class="input-group col-md-10">
+    <input 
+        [(ngModel)]="data" 
+        name="{{nombre}}"
+        placeholder="{{placeholder}}"
+        class="form-control"
+        required
+        [ngbTypeahead]="search"
+        [editable]="false"
+        [resultFormatter]="resultFormat"
+        [inputFormatter]="inputFormat" />
+    <ng-content></ng-content>
+</div>

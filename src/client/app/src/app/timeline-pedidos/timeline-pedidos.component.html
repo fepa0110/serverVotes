@@ -1,0 +1,48 @@
+<h2>
+    Pedido N° {{pedido.id}}
+    <a routerLink="/pedidos" class="btn btn-outline-primary float-right">Volver</a>
+    <button *ngIf="pedido" type="button" class="btn btn-outline-primary border-0" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="infoPedido"
+        ngbTooltip="Info pedido" placement="top">
+            <i class="fa fa-info" aria-hidden="false">
+            </i>
+    </button>
+    <div id="infoPedido" [ngbCollapse]="!isCollapsed">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-block p-2 border border-primary">
+                    <h4 class="font-weight-bold">Pedido</h4>
+                    <h6 name="producto"> Producto: {{ pedido.producto.nombre }}</h6>
+                    <h6 name="cantidad" > Cantidad: {{pedido.cantidad}}</h6>
+                    <h6 name="estado"> Estado: {{pedido.estado}}</h6>
+                    <h6 name="fechaPedido"> Fecha de pedido: {{pedido.fechaPedido}}</h6>
+                    <h6 name="fechaEntrega"> Fecha de entrega: {{pedido.fechaEntrega}}</h6>
+                </div>
+
+                <div class="d-block p-2 border border-primary">
+                    <h4 class="font-weight-bold">Cliente</h4>
+                    <h6> Nombre: {{pedido.cliente.nombre}}</h6>
+                    <h6> CUIT: {{pedido.cliente.cuit}}</h6>
+                    <h6> Mail: {{pedido.cliente.mail}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</h2>
+<p>
+    Planificaciones todas las tareas del pedido en base a cada equipo.
+</p>
+
+<div id="chart">
+    <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [fill]="chartOptions.fill"
+        [grid]="chartOptions.grid"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis"
+    >
+    </apx-chart>
+</div>

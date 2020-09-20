@@ -1,0 +1,25 @@
+<div *ngIf="tipoEquipo">
+        <h2 class="text-uppercase">
+            {{ tipoEquipo && tipoEquipo.id ? 'Tipo de equipo Nº ' + tipoEquipo.id : 'Nuevo tipo de equipo' }}
+        </h2>
+        <form #form="ngForm">
+            <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <br />
+            <input
+                [(ngModel)]="tipoEquipo.nombre"
+                name="nombre"
+                placeholder="Nombre"
+                class="form-control"
+                required
+            />
+            </div>
+            <div class="table-responsive">
+            </div>
+            <button (click)="goBack()" class="btn btn-outline-primary">Atrás</button>
+            &nbsp;
+            <button (click)="save()" [disabled]="!form.valid" class="btn btn-primary">
+            Guardar
+            </button>
+        </form>
+    </div>

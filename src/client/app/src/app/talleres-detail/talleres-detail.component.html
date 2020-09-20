@@ -1,0 +1,67 @@
+<div *ngIf="taller">
+        <h2>{{ taller && taller.id ? 'Taller Nº ' + taller.id : 'Nuevo taller' }}</h2>
+        <form #form="ngForm">
+            <div class="form-group inline">
+                <label for="codigo">Codigo </label>
+                <input
+                    [(ngModel)]="taller.codigo"
+                    name="codigo"
+                    placeholder="Codigo"
+                    class="form-control"
+                    required
+                />
+            </div>
+            <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Codigo</th>
+                    <th>Capacidad</th>
+                    <th>Tipo de equipo</th>
+                    <th><button (click)="addEquipo()" class="btn btn-primary text-uppercase">Agregar equipo</button></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let equipo of taller.equipos; index as i">
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                            <input  name="equipo.codigo{{i}}" 
+                                    [(ngModel)]="equipo.codigo" 
+                                    class="form-control">
+                        </td>
+                        <td>
+                            <input  name="equipo.capacidad{{i}}" 
+                                    [(ngModel)]="equipo.capacidad" 
+                                    class="form-control">
+                        </td>
+                        <td>
+                            <input
+                                [(ngModel)]="equipo.tipoEquipo"
+                                name="equipo.tipoEquipo{{i}}"
+                                placeholder="Tipo de equipo"
+                                class="form-control"
+                                required
+                                [ngbTypeahead]="searchTipoEquipo"
+                                [editable]="false"
+                                [resultFormatter]="resultFormatTipoEquipo"
+                                [inputFormatter]="inputFormatTipoEquipo"
+                            />
+                            <pre>tipoEquipo: {{ equipo.tipoEquipo | json }}</pre>
+                        </td>
+                        <td>
+                            <button (click)="removeEquipo(equipo)" class="btn btn-default">
+                                <i class="fa fa-trash-o" placement="top" ngbTooltip="Eliminar equipo"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <button (click)="goBack()" class="btn btn-outliner-primary">Atrás</button>
+            &nbsp;
+            <button (click)="save()" [disabled]="!form.valid" class="btn btn-primary">
+            Guardar
+            </button>
+        </form>
+    </div>

@@ -1,0 +1,93 @@
+<h2>
+    Taller N° {{tallerId}}
+    <a routerLink="/talleres" class="btn btn-outline-primary float-right">Volver</a>
+</h2>
+<p>
+    Planificaciones todas las tareas del taller en base a cada equipo
+</p>
+
+<p>
+    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="filtrarPorFecha">
+        Filtrar por fecha
+    </button>
+</p>
+<div id="filtrarPorFecha" [ngbCollapse]="!isCollapsed">
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <label for="fechaDesde">Fecha desde</label>
+                <div class="input-group">
+                    <input  class="form-control" 
+                            placeholder="Fecha desde"
+                            name="fechaDesdeDate" 
+                            [(ngModel)]="fechaDesdeDate" 
+                            ngbDatepicker 
+                            #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary calendar" 
+                            (click)="d.toggle()"
+                            name="fechaDesdeButton"
+                            type="button">
+                            <i class="fa fa-calendar">
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+                <br />
+                <div>
+                    <label for="fechaHasta">Fecha hasta</label>
+                    <div class="input-group">
+                        <input  class="form-control" 
+                                placeholder="Fecha hasta"
+                                name="fechaHastaDate" 
+                                [(ngModel)]="fechaHastaDate" 
+                                ngbDatepicker 
+                                #h="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary calendar" 
+                                (click)="h.toggle()"
+                                name="fechaHastaButton" 
+                                type="button">
+                                <i class="fa fa-calendar">
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-block p-2">
+                    <div class="d-inline p-2">
+                        <button class="btn btn-primary"
+                                name="filtraByFecha"
+                                (click)="getByTallerFecha()"
+                                type="button">
+                                <i class="fa fa-filter">
+                                </i>
+                        </button>
+                    </div>
+                    <div class="d-inline p-2">
+                        <button (click)="getPlanificacionesByTaller()" 
+                                class="btn btn-outline-primary d-inline p-2">
+                            Restablecer
+                        </button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div id="chart">
+    <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [fill]="chartOptions.fill"
+        [grid]="chartOptions.grid"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis"
+    >
+    </apx-chart>
+</div>

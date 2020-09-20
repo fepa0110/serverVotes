@@ -1,0 +1,89 @@
+<div *ngIf="pedido">
+        <h2>{{ pedido && pedido.id ? 'Bordero Nº ' + pedido.id : 'Nuevo pedido' }}</h2>
+        <form #form="ngForm">
+            <div>
+                <label for="fechaPedido">Fecha de pedido</label>
+                <div class="input-group col-3">
+                    <input  class="form-control" 
+                            placeholder="Fecha de pedido"
+                            name="fechaPedidoDate" 
+                            [(ngModel)]="fechaPedidoDate" 
+                            ngbDatepicker 
+                            #d="ngbDatepicker" 
+                            disabled="disabled">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary calendar" (click)="d.toggle()" type="button" disabled="disabled">
+                            <i class="fa fa-calendar">
+                            </i>
+                        </button>
+                    </div>
+                </div>
+
+                <br />
+
+                <label for="fechaEntrega">Fecha de entrega</label>
+                <div class="input-group col-3">
+                    <input  class="form-control" 
+                            placeholder="Fecha de entrega"
+                            name="fechaEntregaDate" 
+                            [(ngModel)]="fechaEntregaDate" 
+                            ngbDatepicker 
+                            #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary calendar" (click)="d.toggle()" type="button">
+                            <i class="fa fa-calendar">
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <label for="cantidad">Cantidad </label>
+                <input
+                    [(ngModel)]="pedido.cantidad"
+                    name="cantidad"
+                    placeholder="Cantidad"
+                    class="form-control"
+                    required
+                />
+            </div>
+
+            <label for="cliente">Cliente </label>
+            <input
+                [(ngModel)]="pedido.cliente"
+                name="cliente"
+                placeholder="Cliente"
+                class="form-control"
+                required
+                [ngbTypeahead]="searchCliente"
+                [editable]="false"
+                [resultFormatter]="resultFormat"
+                [inputFormatter]="inputFormat"
+            />
+
+            <br />
+
+            <label for="producto">Producto </label>
+            <input
+                [(ngModel)]="pedido.producto"
+                name="producto"
+                placeholder="Producto"
+                class="form-control"
+                required
+                [ngbTypeahead]="searchProducto"
+                [editable]="false"
+                [resultFormatter]="resultFormat"
+                [inputFormatter]="inputFormat"
+            />
+
+            <br />
+
+            <button (click)="goBack()" class="btn btn-outline-primary">Atrás</button>
+            &nbsp;
+            <button (click)="save()" [disabled]="!form.valid" class="btn btn-primary">
+            Guardar
+            </button>
+        </form>
+    </div>

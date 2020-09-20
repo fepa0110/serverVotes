@@ -1,0 +1,125 @@
+<h3 class="text-uppercase">
+    Pedidos
+    <a routerLink="/pedidos/new" class="btn btn-primary float-right">Nuevo Pedido</a>
+    <button type="button" class="btn btn-outline-primary border-0" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="searchByEstado"
+        ngbTooltip="Filtrar" placement="top">
+            <i class="fa fa-filter" aria-hidden="false">
+            </i>
+    </button>
+    <div id="searchByEstado" [ngbCollapse]="!isCollapsed">
+        <div class="card">
+            <div class="card-body d-block">
+                <div class="input-group">
+                    <input
+                        [(ngModel)]="estado"
+                        name="searchType"
+                        placeholder="Filtrar por estado"
+                        class="form-control d-inline p-2"
+                        [ngbTypeahead]="searchType"
+                        [editable]="false"
+                        [resultFormatter]="resultFormat"
+                        [inputFormatter]="inputFormat"
+                    />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary d-inline p-2" (click)="getPedidosByEstadoPage()" 
+                            type="button">
+                            <i class="fa fa-search">
+                            </i>
+                        </button>
+                        <button class="btn btn-outline-primary d-inline p-2" (click)="resetSearchPedidos()" 
+                            type="button">
+                            Restablecer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</h3>
+
+<div class="table-responsive">
+        <table class="table table-hover table-sm">
+                <caption>Lista de pedidos</caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Fecha de pedido</th>
+                    <th>Fecha de entrega</th>
+                    <th>Estado</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let pedido of resultsPage.results; index as i">
+                    <td>{{ i + 1}}</td>
+                    <td>{{ pedido.cliente.nombre }}</td>
+                    <td>{{ pedido.producto.nombre }}</td>
+                    <td>{{ pedido.cantidad }}</td>
+                    <td>{{ pedido.fechaPedido }}</td>
+                    <td>{{ pedido.fechaEntrega }}</td>
+                    <td>{{ pedido.estado }}</td>
+                    <td>
+                        <a routerLink="/timelinePedidos/{{pedido.id}}" 
+                                *ngIf="pedido.estado === 'PLANIFICADO' || pedido.estado === 'REPLANIFICADO'">
+                                <i class="fa fa-pie-chart" placement="top" 
+                                    ngbTooltip="Ver planificaciones">
+                                </i>
+                        </a>
+                        <a (click)="planificarPedido(pedido.id)" 
+                                *ngIf="pedido.estado === 'GENERADO'" 
+                                class="btn btn-primary text-white">
+                                Planificar
+                        </a>
+                        <a (click)="replanificarPedido(pedido.id)" 
+                                *ngIf="pedido.estado === 'NO_PLANIFICADO'" 
+                                class="btn btn-primary text-white">
+                                Replanificar
+                        </a>
+                    </td>
+                    <td>
+                        <a routerLink="/pedidos/{{pedido.id}}">
+                            <i class="fa fa-pencil" placement="top" 
+                                ngbTooltip="Editar">
+                            </i>
+                        </a>
+                    </td>
+                    <td>
+                        <a (click)="remove(pedido.id)" [routerLink]="">
+                            <i class="fa fa-trash-o" placement="top" 
+                                ngbTooltip="Eliminar">
+                            </i>
+                        </a>
+                    </td>
+
+                    </tr>
+                </tbody>
+        </table>
+        
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example" [hidden]="resultsPage.count <= 1">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" (click)="showPage(-2)">&laquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" (click)="showPage(-1)">&lsaquo;</a>
+                    </li>
+                    <li class="page-item" *ngFor="let t of pages; trackBy: $index" [ngClass]="{true: 'active'}[t+1 === currentPage]">
+                        <a class="page-link" (click)="showPage(t + 1)"> {{t + 1}} </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" (click)="showPage(-3)">&rsaquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" (click)="showPage(-4)">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>

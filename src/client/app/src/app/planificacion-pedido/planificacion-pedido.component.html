@@ -1,0 +1,20 @@
+<div class="table-responsive">
+	<table class="table table-sm">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Tarea</th>
+				<th>Planificacion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let planificacion of planificaciones ; index as i">
+				<td>{{ i+1 }}</td>
+				<td>{{ planificacion.nombre }}</td>
+				<td>
+					<app-planificacion-grafica [planificaciones]="planificacion.tarea" [escala]="20"></app-planificacion-grafica>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

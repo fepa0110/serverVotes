@@ -1,0 +1,20 @@
+<h2>
+    Pedido N° {{pedidoId}}
+    <a routerLink="/pedidos" class="btn btn-outline-primary float-right">Volver</a>
+</h2>
+<p>
+    Planificaciones todas las tareas del pedido en base a cada equipo.
+</p>
+<div id="chart">
+    <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [fill]="chartOptions.fill"
+        [grid]="chartOptions.grid"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis"
+    >
+    </apx-chart>
+</div>

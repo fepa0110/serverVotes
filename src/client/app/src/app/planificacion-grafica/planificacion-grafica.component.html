@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row" [style.width.px]="width">
+        <div *ngFor="let b of getBars(); index as i" 
+            class="progress" 
+            [style.width.px]="b.width" 
+            style="height: 20px;">
+            <div class="progress-bar progress-bar-striped progress-bar bg-info"
+                role="progressbar" 
+                [style.width.%]="(b.hueco)? 0: 100"
+                aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100">{{b.label}}</div>
+        </div>
+    </div>
+</div>

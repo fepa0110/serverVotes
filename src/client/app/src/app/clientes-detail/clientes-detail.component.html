@@ -1,0 +1,45 @@
+<div *ngIf="cliente">
+        <h2 class="text-uppercase">
+            {{ cliente && cliente.id ? 'Tipo de equipo Nº ' + cliente.id : 'Nuevo cliente' }}
+        </h2>
+        <form #form="ngForm">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <br />
+                <input
+                    [(ngModel)]="cliente.nombre"
+                    name="nombre"
+                    placeholder="Nombre"
+                    class="form-control"
+                    required
+                />
+
+                <label for="cuit">Cuit:</label>
+                <br />
+                <input
+                    [(ngModel)]="cliente.cuit"
+                    name="cuit"
+                    placeholder="99-99999999-9"
+                    class="form-control"
+                    required
+                />
+
+                <label for="mail">Mail:</label>
+                <br />
+                <input
+                    [(ngModel)]="cliente.mail"
+                    name="mail"
+                    placeholder="cliente@mail.com"
+                    class="form-control"
+                    required
+                />
+            </div>
+            <div class="table-responsive">
+            </div>
+            <button (click)="goBack()" class="btn btn-outline-primary">Atrás</button>
+            &nbsp;
+            <button (click)="save()" [disabled]="!form.valid" class="btn btn-primary">
+            Guardar
+            </button>
+        </form>
+    </div>
