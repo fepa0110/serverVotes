@@ -1,4 +1,4 @@
-package servlet;
+package server.servlet;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -22,11 +22,11 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import model.Sala;
+import server.model.Sala;
 
-import stateless.SalaService;
+import server.stateless.SalaService;
 
-import servlet.ResponseMessage;
+import server.servlet.ResponseMessage;
 
 @Path("/salas")
 public class SalaRestServlet {

@@ -10,9 +10,9 @@ import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Collection;
 
-import model.Sala;
+import server.model.Sala;
 
-import stateless.SalaService;
+import server.stateless.SalaService;
 
 @Stateless
 public class SalaServiceBean implements SalaService{
