@@ -1,4 +1,4 @@
-package model;
+package server.model;
 
 import javax.persistence.Id;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
       @NamedQuery(name="Sala.findById",
          query="SELECT sala "+ 
                "FROM Sala sala "+
-               "WHERE sala.id= :sala_id"),
+               "WHERE sala.id= :sala_id")
 })
 
 @Entity
