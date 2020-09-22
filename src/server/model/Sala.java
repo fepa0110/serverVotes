@@ -1,4 +1,4 @@
-package server.model;
+package model;
 
 import javax.persistence.Id;
 import javax.persistence.Entity;
