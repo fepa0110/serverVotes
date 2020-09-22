@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Calendar;
 import java.util.Collection;
 
-import server.model.Sala;
+import model.Sala;
 
 public interface SalaService{
     public List<Sala> findAll();
