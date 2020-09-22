@@ -22,78 +22,77 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import model.TipoEquipo;
+import model.Sala;
 
-import stateless.TipoEquipoService;
+import stateless.SalaService;
 
 import servlet.ResponseMessage;
 
-@Path("/tipoEquipos")
-public class TipoEquipoRestServlet {
+@Path("/salas")
+public class SalaRestServlet {
     @EJB
-    TipoEquipoService tipoEquipoService;
+    SalaService salaService;
 
     private ObjectMapper mapper;
 
-    public TipoEquipoRestServlet(){
+    public SalaRestServlet(){
         mapper = new ObjectMapper();
     }
 
-    /* @GET
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String findAll(@DefaultValue("1") @QueryParam("page") Integer page,
-        @DefaultValue("10") @QueryParam("cant") Integer cant) throws IOException{
+    public String findAll() throws IOException{
 
             // Se modifica este método para que utilice el servicio
-        ResultsPage<TipoEquipo> resultsPage = tipoEquipoService.findByPage(page, cant);
+        List<Sala> salas = salaService.findAll();
 
         // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
         String data;
 
         try {  
-            data = mapper.writeValueAsString(resultsPage);
+            data = mapper.writeValueAsString(salas);
         } 
         catch (IOException e) {
             return ResponseMessage
             .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
         }
 
-        return ResponseMessage.message(200,"Tipos de equipo recuperados con éxito",data);
-    }*/
+        return ResponseMessage.message(200,"Salas recuperadas con éxito",data);
+    }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String findById(@PathParam("id") int tipoEquipoId) throws IOException {
+    public String findById(@PathParam("id") int salaId) throws IOException {
         String data;
 
-        TipoEquipo tipoEquipo = new TipoEquipo();
-        tipoEquipo.setId(tipoEquipoId);
+        Sala sala = new Sala();
+        sala.setId(salaId);
 
-        tipoEquipo = tipoEquipoService.findById(tipoEquipo);
+        sala = salaService.findById(sala);
         
         try { 
-            data = mapper.writeValueAsString(tipoEquipo);
+            data = mapper.writeValueAsString(sala);
         } 
         catch (JsonProcessingException e) {
             return ResponseMessage
                 .message(502, "No se pudo dar formato a la salida", e.getMessage());
         }
 
-        return ResponseMessage.message(200,"Tipo de equipo "+tipoEquipoId+" recuperado con éxito",data);
+        return ResponseMessage.message(200,"Tipo de equipo "+salaId+" recuperado con éxito",data);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String create(String json) {
-        TipoEquipo tipoEquipo;
+        Sala sala;
         String data;
 
         try {
-            tipoEquipo = mapper.readValue(json, TipoEquipo.class);
-            tipoEquipo = tipoEquipoService.create(tipoEquipo);
-            data = mapper.writeValueAsString(tipoEquipo);
+            sala = mapper.readValue(json, Sala.class);
+            sala = salaService.create(sala);
+            data = mapper.writeValueAsString(sala);
         } 
         catch (JsonProcessingException e) {
             return ResponseMessage
@@ -110,13 +109,13 @@ public class TipoEquipoRestServlet {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String update(String json) {
-        TipoEquipo tipoEquipo;
+        Sala sala;
         String data;
 
         try {
-            tipoEquipo = mapper.readValue(json, TipoEquipo.class);
-            tipoEquipo = tipoEquipoService.update(tipoEquipo);
-            data = mapper.writeValueAsString(tipoEquipo);
+            sala = mapper.readValue(json, Sala.class);
+            sala = salaService.update(sala);
+            data = mapper.writeValueAsString(sala);
         } 
         catch (JsonProcessingException e) {
             return ResponseMessage
@@ -132,7 +131,7 @@ public class TipoEquipoRestServlet {
     @DELETE
     @Path("/{id}")
     public String remove(@PathParam("id") int id) {
-        tipoEquipoService.remove(id);
+        salaService.remove(id);
         return ResponseMessage.message(200,"Se eliminó correctamente el tipo de equipo");
     }
 
@@ -142,16 +141,16 @@ public class TipoEquipoRestServlet {
     public String search(@PathParam("search") String search) {
 
         // Se modifica este método para que utilice el servicio
-        Collection<TipoEquipo> tipoEquipos = tipoEquipoService.search(search);
+        Collection<Sala> salas = salaService.search(search);
 
-        if (tipoEquipos == null || tipoEquipos.isEmpty()){
+        if (salas == null || salas.isEmpty()){
             return ResponseMessage.message(505, "No existe tipo de equipo para la búsqueda indicada: " + search);
         }
 
         String data;
         try {
 
-        data = mapper.writeValueAsString(tipoEquipos);
+        data = mapper.writeValueAsString(salas);
 
         } catch (IOException e) {
         return ResponseMessage.message(501, "Formato incorrecto en datos de entrada", e.getMessage());

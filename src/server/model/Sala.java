@@ -10,17 +10,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 @NamedQueries({
-      @NamedQuery(name="TipoEquipo.findAll",
-         query="SELECT tequipo "+ 
-               "FROM TipoEquipo tequipo"),
-      @NamedQuery(name="TipoEquipo.findById",
-         query="SELECT tequipo "+ 
-               "FROM TipoEquipo tequipo "+
-               "WHERE tequipo.id= :tipoEquipo_id"),
+      @NamedQuery(name="Sala.findAll",
+         query="SELECT sala "+ 
+               "FROM Sala sala"),
+      @NamedQuery(name="Sala.findById",
+         query="SELECT sala "+ 
+               "FROM Sala sala "+
+               "WHERE sala.id= :sala_id"),
 })
 
 @Entity
-public class TipoEquipo {
+public class Sala {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +53,7 @@ public class TipoEquipo {
          return false;
       }
 
-      TipoEquipo guest = (TipoEquipo)obj;
+      Sala guest = (Sala)obj;
       return this.id == guest.getId();
    }
 }
