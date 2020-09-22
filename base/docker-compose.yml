@@ -8,9 +8,9 @@ services:
     command: ant start-docker
     restart: always
     ports:
-      - "28001:28001"
-      - "4848:4848"
-      - "1527:28002"
+      - "28003:8080"
+      - "28002:4848"
+      - "28001:1527"
     # stdin_open y tty mantienen el servidor funcionando sin commandos en ejecución
     stdin_open: true
     tty: true
