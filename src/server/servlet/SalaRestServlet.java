@@ -79,7 +79,7 @@ public class SalaRestServlet {
                 .message(502, "No se pudo dar formato a la salida", e.getMessage());
         }
 
-        return ResponseMessage.message(200,"Tipo de equipo "+salaId+" recuperado con éxito",data);
+        return ResponseMessage.message(200,"Sala "+salaId+" recuperado con éxito",data);
     }
 
     @POST
@@ -92,6 +92,10 @@ public class SalaRestServlet {
         try {
             sala = mapper.readValue(json, Sala.class);
             sala = salaService.create(sala);
+            if(sala.equals(null)){
+                return ResponseMessage
+                    .message(502, "La sala ya existe");
+            }
             data = mapper.writeValueAsString(sala);
         } 
         catch (JsonProcessingException e) {
@@ -102,7 +106,7 @@ public class SalaRestServlet {
             return ResponseMessage
                 .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
         }
-        return ResponseMessage.message(200,"Tipo de equipo GENERADO correctamente",data);
+        return ResponseMessage.message(200,"Sala GENERADA correctamente",data);
     }
 
     @PUT
@@ -125,7 +129,7 @@ public class SalaRestServlet {
             return ResponseMessage
                 .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
         }
-        return ResponseMessage.message(200,"Tipo de equipo MODIFICADO correctamente",data);
+        return ResponseMessage.message(200,"Sala MODIFICADO correctamente",data);
     }
 
     @DELETE

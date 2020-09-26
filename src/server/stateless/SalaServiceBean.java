@@ -34,7 +34,6 @@ public class SalaServiceBean implements SalaService{
         }
     }
 
-
     public Sala findById(Sala sala){    
         try {
             return getEntityManager()
@@ -49,8 +48,11 @@ public class SalaServiceBean implements SalaService{
 
     @Override
     public Sala create(Sala sala){
-        em.persist(sala);
-        return sala;
+        if(findByNombre(sala.getNombre()).equals(null)){
+            em.persist(sala);
+            return sala;
+        }
+        else return null;
     }
 
     @Override
@@ -65,6 +67,19 @@ public class SalaServiceBean implements SalaService{
         sala.setId(id);
         sala = findById(sala);
         em.remove(sala);
+    }
+
+    @Override
+    public Sala findByNombre(String nombre){
+        try {
+            return getEntityManager()
+                .createNamedQuery("Sala.findByNombre", Sala.class)
+                .setParameter("sala_nombre", nombre)
+                .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override

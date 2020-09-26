@@ -16,7 +16,11 @@ import javax.persistence.JoinColumn;
       @NamedQuery(name="Sala.findById",
          query="SELECT sala "+ 
                "FROM Sala sala "+
-               "WHERE sala.id= :sala_id")
+               "WHERE sala.id= :sala_id"),
+      @NamedQuery(name="Sala.findByNombre",
+         query="SELECT sala "+ 
+               "FROM Sala sala "+
+               "WHERE UPPER(sala.nombre)= UPPER(:sala_nombre)")
 })
 
 @Entity
