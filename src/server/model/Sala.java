@@ -23,7 +23,11 @@ import java.util.Set;
       @NamedQuery(name="Sala.findByNombre",
          query="SELECT sala "+ 
                "FROM Sala sala "+
-               "WHERE UPPER(sala.nombre)= UPPER(:sala_nombre)")
+               "WHERE UPPER(sala.nombre)= UPPER(:sala_nombre)"),
+      @NamedQuery(name="Sala.findByUsername",
+         query="SELECT sala "+ 
+               "FROM Sala sala "+
+               "WHERE sala.usuario.username = :username")
 })
 
 @Entity

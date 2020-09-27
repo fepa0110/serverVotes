@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import model.Sala;
+import model.Usuario;
 
 import stateless.SalaService;
 
@@ -80,6 +81,30 @@ public class SalaRestServlet {
         }
 
         return ResponseMessage.message(200,"Sala "+salaId+" recuperado con éxito",data);
+    }
+
+    @GET
+    @Path("/user/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findAll(@PathParam("username") String username) throws IOException{
+        Usuario usuario = new Usuario();
+        usuario.setUsername(username);
+
+        // Se modifica este método para que utilice el servicio
+        List<Sala> salas = salaService.findByUsername(usuario);
+
+        // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
+        String data;
+
+        try {  
+            data = mapper.writeValueAsString(salas);
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+            .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Salas creadas por \""+username+"\" recuperadas con éxito",data);
     }
 
     @POST

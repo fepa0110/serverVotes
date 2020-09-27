@@ -90,6 +90,19 @@ public class SalaServiceBean implements SalaService{
     }
 
     @Override
+    public List<Sala> findByUsername(Usuario usuario){
+        try {
+            return getEntityManager()
+                .createNamedQuery("Sala.findByUsername", Sala.class)
+                .setParameter("username", usuario.getUsername())
+                .getResultList();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Collection<Sala> search(String name) {
         return em.createQuery("SELECT sala from Sala sala "+
                                 "WHERE UPPER(sala.nombre) "+ 
