@@ -3,6 +3,7 @@
    <jta-data-source>jdbc/votes-db</jta-data-source>
 
     <class>model.Sala</class>
+    <class>model.Usuario</class>
 
     <properties>
       <property name="eclipselink.target-database" value="DERBY"/>

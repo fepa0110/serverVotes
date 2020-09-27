@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Collection;
 
 import model.Sala;
+import model.Usuario;
 
 import stateless.SalaService;
 
@@ -48,7 +49,13 @@ public class SalaServiceBean implements SalaService{
 
     @Override
     public Sala create(Sala sala){
-        if(findByNombre(sala.getNombre()).equals(null)){
+        if(findByNombre(sala.getNombre()) == null){
+            //!USUARIO HARDCODEADO
+            Usuario usuarioHardcodeado = new Usuario();
+            //usuarioHardcodeado.setId(1);
+            usuarioHardcodeado.setUsername("Hardcodeado");
+            sala.setUsuario(usuarioHardcodeado);
+
             em.persist(sala);
             return sala;
         }

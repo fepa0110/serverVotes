@@ -7,7 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
+import java.util.Set;
 
 @NamedQueries({
       @NamedQuery(name="Sala.findAll",
@@ -32,6 +35,10 @@ public class Sala {
 
    private String nombre;
 
+   @ManyToOne(optional=false,cascade=CascadeType.ALL) 
+   @JoinColumn(name="USUARIO", nullable=false, updatable=false)
+   private Usuario usuario;
+
    public int getId() {
       return this.id;
    }
@@ -46,6 +53,14 @@ public class Sala {
 
    public void setNombre(String nombre) {
       this.nombre = nombre;
+   }
+
+   public Usuario getUsuario() { 
+      return this.usuario; 
+   }
+
+   public void setUsuario(Usuario usuario) { 
+      this.usuario = usuario;
    }
 
    @Override

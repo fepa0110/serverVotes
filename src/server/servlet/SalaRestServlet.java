@@ -92,7 +92,7 @@ public class SalaRestServlet {
         try {
             sala = mapper.readValue(json, Sala.class);
             sala = salaService.create(sala);
-            if(sala.equals(null)){
+            if(sala == null){
                 return ResponseMessage
                     .message(502, "La sala ya existe");
             }
