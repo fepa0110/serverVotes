@@ -25,7 +25,7 @@ import java.util.Set;
                "FROM Sala sala "+
                "WHERE UPPER(sala.nombre)= UPPER(:sala_nombre)"),
       @NamedQuery(name="Sala.findByUsername",
-         query="SELECT DISTINCT sala.usuario "+ 
+         query="SELECT sala.id, sala.nombre "+ 
                "FROM Sala sala "+
                "WHERE sala.usuario.username = :username")
 })
