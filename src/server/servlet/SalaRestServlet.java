@@ -104,7 +104,7 @@ public class SalaRestServlet {
             .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
         }
 
-        return ResponseMessage.message(200,"Salas creadas por \""+username+"\" recuperadas con éxito",data);
+        return ResponseMessage.message(200,"Salas creadas por "+username+" recuperadas con éxito",data);
     }
 
     @POST
