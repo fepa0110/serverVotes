@@ -32,9 +32,9 @@ public class OPVotacion {
    private String titulo;
    private String descripcion;
 
-   @ManyToOne(optional=false) 
-   @JoinColumn(name="Sala_ID", nullable=false, updatable=false)
-   private Sala sala;
+//   @ManyToOne(optional=false) 
+//   @JoinColumn(name="Sala_ID", nullable=false, updatable=false)
+//   private Sala sala;
 
    public int getId() {
       return this.id;

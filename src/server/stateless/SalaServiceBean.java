@@ -35,6 +35,17 @@ public class SalaServiceBean implements SalaService{
         }
     }
 
+    public List<OPVotacion> findAllOpVt() {
+        try {
+            return getEntityManager()
+                .createNamedQuery("Sala.findAllOpVt", Sala.class)
+                .getResultList();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
     public Sala findById(Sala sala){    
         try {
             return getEntityManager()

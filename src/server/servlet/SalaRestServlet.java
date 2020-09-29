@@ -24,6 +24,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import model.Sala;
 import model.Usuario;
+import model.OPVotacion;
 
 import stateless.SalaService;
 
@@ -52,6 +53,29 @@ public class SalaRestServlet {
 
         try {  
             data = mapper.writeValueAsString(salas);
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+            .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Salas recuperadas con éxito",data);
+    }
+
+    
+    @GET
+     @Path("/{id}/OpVt")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findAllOpVt() throws IOException{
+
+            // Se modifica este método para que utilice el servicio
+        List<OPVotacion> op = salaService.findAllOpVt();
+
+        // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
+        String data;
+
+        try {  
+            data = mapper.writeValueAsString(op);
         } 
         catch (IOException e) {
             return ResponseMessage

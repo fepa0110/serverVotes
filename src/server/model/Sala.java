@@ -17,6 +17,9 @@ import java.util.Set;
       @NamedQuery(name="Sala.findAll",
          query="SELECT sala "+ 
                "FROM Sala sala"),
+      @NamedQuery(name="Sala.findAllOpVt",
+         query="SELECT sala.opVotacion "+ 
+               "FROM Sala sala"),
       @NamedQuery(name="Sala.findById",
          query="SELECT sala "+ 
                "FROM Sala sala "+
@@ -44,8 +47,10 @@ public class Sala {
    @JoinColumn(name="USUARIO", nullable=false, updatable=false)
    private Usuario usuario;
 
-   @OneToMany(mappedBy = "sala", cascade=CascadeType.ALL)
-   private List opVotacion; 
+   @OneToMany(orphanRemoval=true)
+   @JoinColumn(name="Sala_ID") // join column is in table for Order
+   private List<OPVotacion> opVotacion;
+
 
    public int getId() {
       return this.id;
