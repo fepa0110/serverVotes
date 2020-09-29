@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
+import java.util.List;
 import java.util.Set;
 
 @NamedQueries({
@@ -43,6 +44,10 @@ public class Sala {
    @JoinColumn(name="USUARIO", nullable=false, updatable=false)
    private Usuario usuario;
 
+   @OneToMany(targetEntity=OPVotacion.class)
+   private List opVotacion;
+
+
    public int getId() {
       return this.id;
    }
@@ -65,6 +70,16 @@ public class Sala {
 
    public void setUsuario(Usuario usuario) { 
       this.usuario = usuario;
+   }
+
+   public List getOpVotacion() 
+   {
+      return opVotacion;
+   }
+
+   public void setOpVotacion(List opVotacion) 
+   {
+      this.opVotacion = opVotacion;
    }
 
    @Override

@@ -4,6 +4,7 @@
 
     <class>model.Sala</class>
     <class>model.Usuario</class>
+    <class>model.OPVotacion</class>
 
     <properties>
       <property name="eclipselink.target-database" value="DERBY"/>
