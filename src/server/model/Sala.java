@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 
 @NamedQueries({
@@ -46,11 +45,7 @@ public class Sala {
    private Usuario usuario;
 
    @OneToMany(mappedBy = "sala", cascade=CascadeType.ALL)
-   private List<OPVotacion> opVotacion; 
-
-   public Sala() {
-      opVotacion = new ArrayList<>();
-   }
+   private List opVotacion; 
 
    public int getId() {
       return this.id;
