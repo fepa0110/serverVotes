@@ -60,14 +60,14 @@ public class OPVotacion {
       this.descripcion = descripcion;
    }
 
-   public Sala getSala() { 
+/*   public Sala getSala() { 
       return this.sala; 
    }
 
    public void setSala(Sala sala) { 
       this.sala = sala;
    }
-
+*/
    @Override
    public boolean equals(Object obj){
       if(obj == this){

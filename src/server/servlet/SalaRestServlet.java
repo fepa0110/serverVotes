@@ -69,7 +69,7 @@ public class SalaRestServlet {
     public String findAllOpVt() throws IOException{
 
             // Se modifica este método para que utilice el servicio
-        List<OPVotacion> op = salaService.findAllOpVt();
+        List<Sala> op = salaService.findAllOpVt();
 
         // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
         String data;

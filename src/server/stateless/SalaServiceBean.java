@@ -12,6 +12,7 @@ import java.util.Collection;
 
 import model.Sala;
 import model.Usuario;
+import model.OPVotacion;
 
 import stateless.SalaService;
 
@@ -35,7 +36,7 @@ public class SalaServiceBean implements SalaService{
         }
     }
 
-    public List<OPVotacion> findAllOpVt() {
+    public List<Sala> findAllOpVt() {
         try {
             return getEntityManager()
                 .createNamedQuery("Sala.findAllOpVt", Sala.class)

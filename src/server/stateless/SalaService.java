@@ -10,7 +10,7 @@ import model.OPVotacion;
 
 public interface SalaService{
     public List<Sala> findAll();
-    public List<OPVotacion> findAllOpVt();
+    public List<Sala> findAllOpVt();
     public Sala findById(Sala sala);
     public Sala create(Sala sala);
     public Sala update(Sala sala);
