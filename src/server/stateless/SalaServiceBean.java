@@ -62,9 +62,10 @@ public class SalaServiceBean implements SalaService{
     @Override
     public Sala create(Sala sala){
         if(findByNombre(sala.getNombre()) == null){
+            
             //!USUARIO HARDCODEADO
             Usuario usuarioHardcodeado = new Usuario();
-            //usuarioHardcodeado.setId(1);
+            usuarioHardcodeado.setId(1);
             usuarioHardcodeado.setUsername("Hardcodeado");
             sala.setUsuario(usuarioHardcodeado);
 
