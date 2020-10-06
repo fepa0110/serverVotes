@@ -12,6 +12,7 @@ import java.util.Collection;
 
 import model.Sala;
 import model.Usuario;
+import model.OPVotacion;
 
 import stateless.SalaService;
 
@@ -35,6 +36,17 @@ public class SalaServiceBean implements SalaService{
         }
     }
 
+    public List<Sala> findAllOpVt() {
+        try {
+            return getEntityManager()
+                .createNamedQuery("Sala.findAllOpVt", Sala.class)
+                .getResultList();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
     public Sala findById(Sala sala){    
         try {
             return getEntityManager()
@@ -50,9 +62,10 @@ public class SalaServiceBean implements SalaService{
     @Override
     public Sala create(Sala sala){
         if(findByNombre(sala.getNombre()) == null){
+            
             //!USUARIO HARDCODEADO
             Usuario usuarioHardcodeado = new Usuario();
-            //usuarioHardcodeado.setId(1);
+            usuarioHardcodeado.setId(1);
             usuarioHardcodeado.setUsername("Hardcodeado");
             sala.setUsuario(usuarioHardcodeado);
 

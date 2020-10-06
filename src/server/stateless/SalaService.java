@@ -6,9 +6,11 @@ import java.util.Collection;
 
 import model.Sala;
 import model.Usuario;
+import model.OPVotacion;
 
 public interface SalaService{
     public List<Sala> findAll();
+    public List<Sala> findAllOpVt();
     public Sala findById(Sala sala);
     public Sala create(Sala sala);
     public Sala update(Sala sala);

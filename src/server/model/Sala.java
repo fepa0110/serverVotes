@@ -10,11 +10,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
+import java.util.List;
 import java.util.Set;
 
 @NamedQueries({
       @NamedQuery(name="Sala.findAll",
          query="SELECT sala "+ 
+               "FROM Sala sala"),
+      @NamedQuery(name="Sala.findAllOpVt",
+         query="SELECT sala.opVotacion "+ 
                "FROM Sala sala"),
       @NamedQuery(name="Sala.findById",
          query="SELECT sala "+ 
@@ -43,6 +47,11 @@ public class Sala {
    @JoinColumn(name="USUARIO", nullable=false, updatable=false)
    private Usuario usuario;
 
+   @OneToMany(orphanRemoval=true)
+   @JoinColumn(name="Sala_ID") // join column is in table for Order
+   private List<OPVotacion> opVotacion;
+
+
    public int getId() {
       return this.id;
    }
@@ -65,6 +74,16 @@ public class Sala {
 
    public void setUsuario(Usuario usuario) { 
       this.usuario = usuario;
+   }
+
+   public List getOpVotacion() 
+   {
+      return opVotacion;
+   }
+
+   public void setOpVotacion(List opVotacion) 
+   {
+      this.opVotacion = opVotacion;
    }
 
    @Override
