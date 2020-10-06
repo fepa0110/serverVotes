@@ -10,8 +10,6 @@ import javax.persistence.NoResultException;
 import model.Usuario;
 import stateless.UsuarioService;
 
-
-
 @Stateless
 public class UsuarioServiceBean implements UsuarioService {
     @PersistenceContext(unitName = "mrplite")
@@ -23,11 +21,7 @@ public class UsuarioServiceBean implements UsuarioService {
 
     @Override
     public Usuario create(Usuario usuario) {
-        getEntityManager().persist(usuario);
+        em.persist(usuario);
         return usuario;
-    }
-
-
-
-    
+    }    
 }
