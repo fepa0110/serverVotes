@@ -43,7 +43,7 @@ public class Usuario {
     private String username;
     private String nombre;
     private String apellido;
-    private String correElectronico;
+    private String correoElectronico;
     private String contrasenia;
     private String dni;
 
@@ -69,7 +69,7 @@ public class Usuario {
     }
 
     public String getNombre(){
-        return nombre;
+        return this.nombre;
         
     }
 
@@ -78,7 +78,7 @@ public class Usuario {
     }
 
     public String getApellido(){
-        return apellido;
+        return this.apellido;
     }
 
     public void setApellido(String apellido) {
@@ -86,15 +86,15 @@ public class Usuario {
     }
 
     public String getCorreoElectronico(){
-        return correElectronico;
+        return this.correoElectronico;
     }
 
-    public void setCorreoElectronico(String correElectronico) {
-        this.correElectronico = correElectronico;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
 
     public String getContrasenia(){
-        return contrasenia;
+        return this.contrasenia;
     }
 
     public void setContrasenia(String contrasenia) {
@@ -102,7 +102,7 @@ public class Usuario {
     }
 
     public String getDni(){
-        return dni;
+        return this.dni;
     }
 
     public void setDni(String dni) {
@@ -110,7 +110,7 @@ public class Usuario {
     }
 
     public Calendar getFechaNacimiento(){
-        return fechaNacimiento;
+        return this.fechaNacimiento;
     }
 
     public void setFechaNacimiento(Calendar fechaNacimiento){
