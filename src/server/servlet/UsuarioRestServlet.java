@@ -32,14 +32,13 @@ import stateless.UsuarioService;
 import servlet.ResponseMessage;
 
 
-@Path("/usuario")
+@Path("/usuarios")
 public class UsuarioRestServlet {
     @EJB
     UsuarioService usuarioService;
 
     private ObjectMapper mapper;
 
-    
     public UsuarioRestServlet(){
         mapper = new ObjectMapper();
         mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
@@ -47,15 +46,7 @@ public class UsuarioRestServlet {
         // Le provee el formateador de fechas.
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mapper.setDateFormat(df);
-
-        
-
-
-
     }
-
-    
-    
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -67,10 +58,12 @@ public class UsuarioRestServlet {
         try {
             usuario = mapper.readValue(json, Usuario.class);
             usuario = usuarioService.create(usuario);
+            
             if(usuario == null){
                 return ResponseMessage
                     .message(502, "El usuario ya existe");
             }
+            
             dataUsuario = mapper.writeValueAsString(usuario);
         } 
         catch (JsonProcessingException e) {

@@ -58,8 +58,6 @@ public class Usuario {
         this.id = id;
     }
 
-
-
     public String getUsername() {
         return this.username;
     }
