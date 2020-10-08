@@ -94,7 +94,7 @@ public class UsuarioRestServlet {
                     .message(502, "Usuario o contraseña no validos.");
             }
             
-            data = mapper.writeValueAsString(usuario);
+            data = mapper.writeValueAsString(usuarioAutentificado);
         } 
         catch (JsonProcessingException e) {
             return ResponseMessage
