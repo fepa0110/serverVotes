@@ -77,7 +77,33 @@ public class UsuarioRestServlet {
         return ResponseMessage.message(200,"Usuario GENERADO correctamente",dataUsuario);
     }
     
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String autentificarUsuario(String json) throws IOException{
+        Usuario usuario;
+        String data;
 
-
-
+        try {
+            usuario = mapper.readValue(json, Usuario.class);
+            Usuario usuarioAutentificado = usuarioService.autenticarUsuario(usuario);
+            
+            if(usuarioAutentificado == null){
+                return ResponseMessage
+                    .message(502, "Usuario o contraseña no validos.");
+            }
+            
+            data = mapper.writeValueAsString(usuario);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"Usuario AUTENTIFICADO correctamente",data);
+    }
 }

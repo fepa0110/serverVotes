@@ -64,7 +64,7 @@ public class SalaRestServlet {
 
     
     @GET
-     @Path("/{id}/OpVt")
+    @Path("/{id}/OpVt")
     @Produces(MediaType.APPLICATION_JSON)
     public String findAllOpVt() throws IOException{
 
