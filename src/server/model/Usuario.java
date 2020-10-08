@@ -21,15 +21,11 @@ import model.Sala;
     @NamedQuery(name="Usuario.findAll",
         query="SELECT usuario "+ 
                 "FROM Usuario usuario"),
-    @NamedQuery(name="Usuario.findById",
-        query="SELECT usuario "+ 
-            "FROM Usuario usuario "+
-            "WHERE usuario.id= :usuario_id"),
     @NamedQuery(name="Usuario.findByUsername",
         query="SELECT usuario "+ 
             "FROM Usuario usuario "+
-            "WHERE UPPER(usuario.username)= UPPER(:usuario_username)")
-    
+            "WHERE UPPER(usuario.username) = UPPER(:username)")
+
 })
 
 @Entity
@@ -40,7 +36,9 @@ public class Usuario {
     @Column(name="usuario_id")
     private int id;
 
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String username;
+
     private String nombre;
     private String apellido;
     private String correoElectronico;
