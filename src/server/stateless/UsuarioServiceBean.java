@@ -40,21 +40,36 @@ public class UsuarioServiceBean implements UsuarioService {
     }
 
     @Override
+    public Usuario findByLogin(Usuario usuario){
+        try {
+            return getEntityManager()
+                .createNamedQuery("Usuario.findByLogin", Usuario.class)
+                .setParameter("username", usuario.getUsername())
+                .setParameter("password", usuario.getContrasenia())
+                .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Usuario autenticarUsuario(Usuario usuario){
-        Usuario usuarioPersistido = this.findByUsername(usuario);
+        Usuario usuarioPersistido = this.findByLogin(usuario);
+        return usuarioPersistido;
 
         //Si el usuario existe
-        if(usuario != null){
-            int validezContraseña = usuario.getContrasenia()
-                .compareToIgnoreCase(usuarioPersistido.getContrasenia());
+/*         if(usuarioPersistido != null){
+            String contraseniaObtenida = usuario.getContrasenia().toUpperCase();
+            String contraseniaBaseDatos = usuarioPersistido.getContrasenia().toUpperCase();
             
             //si la contraseña es valida
-            if(validezContraseña == 0){
+            if(contraseniaObtenida == contraseniaBaseDatos){
                 usuarioPersistido.setContrasenia(null);
                 return usuarioPersistido; //Retorno la informacion de usuario
             }
             else return null;
         }
-        else return null;
+        else return null; */
     }
 }

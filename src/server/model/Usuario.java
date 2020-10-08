@@ -24,7 +24,12 @@ import model.Sala;
     @NamedQuery(name="Usuario.findByUsername",
         query="SELECT usuario "+ 
             "FROM Usuario usuario "+
-            "WHERE UPPER(usuario.username) = UPPER(:username)")
+            "WHERE UPPER(usuario.username) LIKE UPPER(:username)"),
+    @NamedQuery(name="Usuario.findByLogin",
+        query="SELECT usuario "+ 
+            "FROM Usuario usuario "+
+            "WHERE UPPER(usuario.username) LIKE UPPER(:username) "+
+            "AND usuario.contrasenia LIKE :password")
 
 })
 
