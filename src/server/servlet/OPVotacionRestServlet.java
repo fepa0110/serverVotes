@@ -31,7 +31,7 @@ import stateless.OPVotacionService;
 
 import servlet.ResponseMessage;
 
-@Path("/opVotacion")
+@Path("/opVotaciones")
 public class OPVotacionRestServlet {
     @EJB
     OPVotacionService opVotacionService;
@@ -44,14 +44,15 @@ public class OPVotacionRestServlet {
  
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String create(String json) {
+    public String create(@QueryParam("titulo") String titulo, @QueryParam("descripcion") String desc, @QueryParam("sala_id") int sala_id) {
         OPVotacion opVotacion;
         String data;
 
         try {
-            opVotacion = mapper.readValue(json, OPVotacion.class);
-            opVotacion = opVotacionService.create(opVotacion);
+            opVotacion = new OPVotacion();
+            opVotacion.setTitulo(titulo);
+            opVotacion.setDescripcion(desc);
+            opVotacion = opVotacionService.create(opVotacion, sala_id);
             data = mapper.writeValueAsString(opVotacion);
         } 
         catch (JsonProcessingException e) {

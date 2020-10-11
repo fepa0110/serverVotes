@@ -36,6 +36,8 @@ public class OPVotacion {
 //   @JoinColumn(name="Sala_ID", nullable=false, updatable=false)
 //   private Sala sala;
 
+   public OPVotacion () {}
+
    public int getId() {
       return this.id;
    }

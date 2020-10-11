@@ -8,7 +8,7 @@ import model.OPVotacion;
 
 public interface OPVotacionService {
     
-    public OPVotacion create(OPVotacion opVotacion);
+    public OPVotacion create(OPVotacion opVotacion, int sala_id);
     public OPVotacion update(OPVotacion opVotacion);
     public void remove(int id);   
 

@@ -26,8 +26,9 @@ public class OPVotacionServiceBean implements OPVotacionService{
     }
 
     @Override
-    public OPVotacion create(OPVotacion opVotacion){         
-            em.persist(opVotacion);
+    public OPVotacion create(OPVotacion opVotacion, int sala_id){
+            Query query = getEntityManager().createNativeQuery("INSERT INTO OPVOTACION (TITULO, DESCRIPCION, SALA_ID) VALUES ('"+opVotacion.getTitulo()+"', '"+opVotacion.getDescripcion()+"', "+sala_id+")");         
+            query.executeUpdate();
             return opVotacion;       
     }
 
