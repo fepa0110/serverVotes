@@ -43,16 +43,15 @@ public class OPVotacionRestServlet {
     }
  
     @POST
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String create(@QueryParam("titulo") String titulo, @QueryParam("descripcion") String desc, @QueryParam("sala_id") String sala_id) {
+    public String create(@PathParam("id") int sala_id, String json) {
         OPVotacion opVotacion;
         String data;
 
         try {
-            opVotacion = new OPVotacion();
-            opVotacion.setTitulo(titulo);
-            opVotacion.setDescripcion(desc);
-            opVotacion = opVotacionService.create(opVotacion, Integer.parseInt(sala_id));
+            opVotacion = mapper.readValue(json, OPVotacion.class);
+            opVotacion = opVotacionService.create(opVotacion, sala_id);
             data = mapper.writeValueAsString(opVotacion);
         } 
         catch (JsonProcessingException e) {
