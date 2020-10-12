@@ -27,9 +27,22 @@ public class OPVotacionServiceBean implements OPVotacionService{
 
     @Override
     public OPVotacion create(OPVotacion opVotacion, int sala_id){
-            Query query = getEntityManager().createNativeQuery("INSERT INTO OPVOTACION (TITULO, DESCRIPCION, SALA_ID) VALUES ('"+opVotacion.getTitulo()+"', '"+opVotacion.getDescripcion()+"', "+sala_id+")");         
-            query.executeUpdate();
+           // Query query = getEntityManager().createNativeQuery("INSERT INTO OPVOTACION (TITULO, DESCRIPCION, SALA_ID) VALUES ('"+opVotacion.getTitulo()+"', '"+opVotacion.getDescripcion()+"', "+sala_id+")");         
+           // query.executeUpdate();
             return opVotacion;       
+    }
+
+    @Override
+    public OPVotacion findById(int id){
+        try {
+            return getEntityManager()
+                .createNamedQuery("OPVotacion.findById", OPVotacion.class)
+                .setParameter("OPVotacion_id", id);
+                .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override
@@ -40,7 +53,8 @@ public class OPVotacionServiceBean implements OPVotacionService{
 
     @Override
     public void remove(int id) {
-        
+        OPVotacion opVotacion = findById(id);
+        em.remove(opVotacion);
     }
 
 }
