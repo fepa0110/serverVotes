@@ -14,6 +14,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.Collection;
 
@@ -35,6 +36,8 @@ import servlet.ResponseMessage;
 public class OPVotacionRestServlet {
     @EJB
     OPVotacionService opVotacionService;
+    @EJB
+    SalaService salaService;
 
     private ObjectMapper mapper;
 
@@ -47,11 +50,20 @@ public class OPVotacionRestServlet {
     @Consumes(MediaType.APPLICATION_JSON)
     public String create(@PathParam("id") int sala_id, String json) {
         OPVotacion opVotacion;
+        List<OPVotacion> listOPvotacion = new ArrayList<>();
+        Sala sala;
         String data;
 
         try {
+            sala = new Sala();
+            sala.setId(sala_id);
+            sala = salaService.findById(sala);
+            listOPvotacion = sala.getOpVotacion();
             opVotacion = mapper.readValue(json, OPVotacion.class);
-            opVotacion = opVotacionService.create(opVotacion, sala_id);
+            listOPvotacion.add(opVotacion);
+            sala.setOpVotacion(listOPvotacion);
+            salaService.update(sala);
+            //opVotacion = opVotacionService.create(opVotacion, sala_id);
             data = mapper.writeValueAsString(opVotacion);
         } 
         catch (JsonProcessingException e) {
