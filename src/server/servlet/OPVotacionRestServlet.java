@@ -101,10 +101,25 @@ public class OPVotacionRestServlet {
     }
 
     @DELETE
-    @Path("/{id}")
-    public String remove(@PathParam("id") int id) {
-        opVotacionService.remove(id);
-        return ResponseMessage.message(200,"Se eliminó correctamente el tipo de equipo");
+    @Path("/{id_sala}/{id_opVt}")
+    public String remove(@PathParam("id_sala") int sala_id, @PathParam("id_opVt") int opVt_id) {
+        List<OPVotacion> listOPvotacion = new ArrayList<>();
+        Sala sala;
+
+            sala = new Sala();
+            sala.setId(sala_id);
+            sala = salaService.findById(sala);
+            listOPvotacion = sala.getOpVotacion();
+            for (int i = 0; i < listOPvotacion.size(); i++ ){
+                if (listOPvotacion.get(i).getId() == opVt_id){
+                    listOPvotacion.remove(i);
+                }
+            }
+            sala.setOpVotacion(listOPvotacion);
+            salaService.update(sala);
+
+        //opVotacionService.remove(id);
+        return ResponseMessage.message(200,"Se eliminó correctamente la Opcion de Votacion");
     }
 
 }
