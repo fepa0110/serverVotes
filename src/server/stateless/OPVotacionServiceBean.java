@@ -37,7 +37,7 @@ public class OPVotacionServiceBean implements OPVotacionService{
         try {
             return getEntityManager()
                 .createNamedQuery("OPVotacion.findById", OPVotacion.class)
-                .setParameter("OPVotacion_id", id);
+                .setParameter("OPVotacion_id", id)
                 .getSingleResult();
         } 
         catch (NoResultException e) {
