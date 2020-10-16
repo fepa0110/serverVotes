@@ -8,6 +8,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
 import java.util.List;
@@ -41,6 +42,7 @@ public class Sala {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
 
+   @Column(name="nombre",unique=true)
    private String nombre;
 
    @ManyToOne(optional=false,cascade=CascadeType.ALL) 

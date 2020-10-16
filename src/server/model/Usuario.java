@@ -41,13 +41,18 @@ public class Usuario {
     @Column(name="usuario_id")
     private int id;
 
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="username",unique=true)
     private String username;
 
     private String nombre;
     private String apellido;
+
+    @Column(name="correoElectronico",unique=true)
     private String correoElectronico;
+    
     private String contrasenia;
+
+    @Column(name="dni",unique=true)
     private String dni;
 
     @Temporal(TemporalType.DATE)
