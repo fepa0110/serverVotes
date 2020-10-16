@@ -106,4 +106,27 @@ public class UsuarioRestServlet {
         }
         return ResponseMessage.message(200,"Usuario AUTENTIFICADO correctamente",data);
     }
+
+    @GET
+    @Path("/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findById(@PathParam("username") String username) throws IOException {
+        String data;
+
+        Usuario usuario = new Usuario();
+        usuario.setUsername(username);
+
+        usuario = usuarioService.findByUsername(usuario);
+        usuario.setContrasenia(null);
+        
+        try { 
+            data = mapper.writeValueAsString(usuario);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Usuario "+username+" recuperado con éxito",data);
+    }
 }
