@@ -132,15 +132,20 @@ public class SalaRestServlet {
     }
 
     @POST
+    @Path("/{username}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String create(String json) {
+    public String create(String json, @PathParam("username") String username) {
         Sala sala;
         String data;
 
         try {
+            Usuario usuario = new Usuario();
+            usuario.setUsername(username);
+
             sala = mapper.readValue(json, Sala.class);
-            sala = salaService.create(sala);
+            sala = salaService.create(sala,usuario);
+
             if(sala == null){
                 return ResponseMessage
                     .message(502, "La sala ya existe");

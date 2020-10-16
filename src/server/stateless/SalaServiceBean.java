@@ -1,5 +1,6 @@
 package stateless;
 
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +21,9 @@ import stateless.SalaService;
 public class SalaServiceBean implements SalaService{
     @PersistenceContext(unitName = "mrplite")
     protected EntityManager em;
+
+    @EJB
+    private UsuarioService usuarioService;
 
     public EntityManager getEntityManager() {
         return em;
@@ -60,14 +64,11 @@ public class SalaServiceBean implements SalaService{
     }
 
     @Override
-    public Sala create(Sala sala){
+    public Sala create(Sala sala, Usuario usuario){
         if(findByNombre(sala.getNombre()) == null){
             
-            //!USUARIO HARDCODEADO
-            Usuario usuarioHardcodeado = new Usuario();
-            usuarioHardcodeado.setId(1);
-            usuarioHardcodeado.setUsername("Hardcodeado");
-            sala.setUsuario(usuarioHardcodeado);
+            usuario = usuarioService.findByUsername(usuario);
+            sala.setUsuario(usuario);
 
             em.persist(sala);
             return sala;
