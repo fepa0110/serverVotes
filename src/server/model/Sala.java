@@ -50,7 +50,7 @@ public class Sala {
    private Usuario usuario;
 
    @OneToMany(orphanRemoval=true)
-   @JoinColumn(name="Sala_ID", nullable=false, updatable=false) // join column is in table for Order
+   @JoinColumn(name="Sala_ID") // join column is in table for Order
    private List<OPVotacion> opVotacion;
 
 

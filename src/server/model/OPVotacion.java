@@ -30,8 +30,9 @@ public class OPVotacion {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
 
-   @Column (nullable = false)
+   @Column(nullable=false)
    private String titulo;
+
    private String descripcion;
 
 //   @ManyToOne(optional=false) 
