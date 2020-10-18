@@ -27,6 +27,24 @@ public class UsuarioServiceBean implements UsuarioService {
     }
 
     @Override
+    public Usuario update(Usuario usuario) {
+        //Traigo el usuario
+        Usuario usuarioBuscado = this.findByUsername(usuario);
+
+        //Si el usuario no existe 
+        if(usuarioBuscado == null) return null;
+
+        //Actualizo el usuario con los datos
+
+        if(usuario.getNombre() != null) usuarioBuscado.setNombre(usuario.getNombre());
+        if(usuario.getApellido() != null) usuarioBuscado.setApellido(usuario.getApellido());
+        if(usuario.getContrasenia() != null) usuarioBuscado.setContrasenia(usuario.getContrasenia());
+
+        em.merge(usuarioBuscado);
+        return usuarioBuscado;
+    }
+
+    @Override
     public Usuario findByUsername(Usuario usuario){
         try {
             return getEntityManager()
@@ -57,19 +75,5 @@ public class UsuarioServiceBean implements UsuarioService {
     public Usuario autenticarUsuario(Usuario usuario){
         Usuario usuarioPersistido = this.findByLogin(usuario);
         return usuarioPersistido;
-
-        //Si el usuario existe
-/*         if(usuarioPersistido != null){
-            String contraseniaObtenida = usuario.getContrasenia().toUpperCase();
-            String contraseniaBaseDatos = usuarioPersistido.getContrasenia().toUpperCase();
-            
-            //si la contraseña es valida
-            if(contraseniaObtenida == contraseniaBaseDatos){
-                usuarioPersistido.setContrasenia(null);
-                return usuarioPersistido; //Retorno la informacion de usuario
-            }
-            else return null;
-        }
-        else return null; */
     }
 }
