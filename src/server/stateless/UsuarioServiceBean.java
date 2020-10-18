@@ -70,6 +70,19 @@ public class UsuarioServiceBean implements UsuarioService {
     }
 
     @Override
+    public Usuario findByEmail(Usuario usuario){
+        try {
+            return getEntityManager()
+                .createNamedQuery("Usuario.findByEmail", Usuario.class)
+                .setParameter("email", usuario.getCorreoElectronico())
+                .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Usuario findByLogin(Usuario usuario){
         try {
             return getEntityManager()

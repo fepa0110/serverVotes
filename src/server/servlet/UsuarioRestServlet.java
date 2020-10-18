@@ -152,4 +152,33 @@ public class UsuarioRestServlet {
 
         return ResponseMessage.message(200,"Usuario "+username+" recuperado con éxito",data);
     }
+
+    @POST
+    @Path("/email")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findByEmail(String json) throws IOException {
+        Usuario usuario;
+        String dataUsuario;
+
+        try {
+            usuario = mapper.readValue(json, Usuario.class);
+            usuario = usuarioService.findByEmail(usuario);
+            
+            if(usuario == null){
+                return ResponseMessage
+                    .message(502, "El email no existe");
+            }
+            
+            dataUsuario = mapper.writeValueAsString(usuario);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"Usuario "+usuario.getUsername()+" recuperado con éxito",dataUsuario);
+    }
 }

@@ -25,6 +25,10 @@ import model.Sala;
         query="SELECT usuario "+ 
             "FROM Usuario usuario "+
             "WHERE UPPER(usuario.username) LIKE UPPER(:username)"),
+    @NamedQuery(name="Usuario.findByEmail",
+        query="SELECT usuario "+ 
+            "FROM Usuario usuario "+
+            "WHERE UPPER(usuario.correoElectronico) LIKE UPPER(:email)"),
     @NamedQuery(name="Usuario.findByLogin",
         query="SELECT usuario "+ 
             "FROM Usuario usuario "+
