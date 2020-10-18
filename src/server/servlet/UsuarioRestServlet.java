@@ -140,7 +140,7 @@ public class UsuarioRestServlet {
         usuario.setUsername(username);
 
         usuario = usuarioService.findByUsername(usuario);
-        usuario.setContrasenia(null);
+        //usuario.setContrasenia(null);
         
         try { 
             data = mapper.writeValueAsString(usuario);

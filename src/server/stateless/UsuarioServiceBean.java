@@ -35,11 +35,23 @@ public class UsuarioServiceBean implements UsuarioService {
         if(usuarioBuscado == null) return null;
 
         //Actualizo el usuario con los datos
+        if(usuario.getNombre() != null && usuario.getNombre() != usuarioBuscado.getNombre()) {
+            usuarioBuscado.setNombre(usuario.getNombre());
+        }
 
-        if(usuario.getNombre() != null) usuarioBuscado.setNombre(usuario.getNombre());
-        if(usuario.getApellido() != null) usuarioBuscado.setApellido(usuario.getApellido());
-        if(usuario.getContrasenia() != null) usuarioBuscado.setContrasenia(usuario.getContrasenia());
+        if(usuario.getApellido() != null && usuario.getApellido() != usuarioBuscado.getApellido() ) {
+            usuarioBuscado.setApellido(usuario.getApellido());
+        }
 
+        if(usuario.getCorreoElectronico() != null && usuario.getCorreoElectronico() != usuarioBuscado.getCorreoElectronico() ) {
+            usuarioBuscado.setCorreoElectronico(usuario.getCorreoElectronico());
+        }
+
+        if(usuario.getContrasenia() != null && usuario.getContrasenia() != usuarioBuscado.getContrasenia()){
+            usuarioBuscado.setContrasenia(usuario.getContrasenia());
+        } 
+
+        //Actualizo el usuario en la base de datos
         em.merge(usuarioBuscado);
         return usuarioBuscado;
     }
