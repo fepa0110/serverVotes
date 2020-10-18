@@ -77,7 +77,8 @@ public class UsuarioRestServlet {
         return ResponseMessage.message(200,"Usuario GENERADO correctamente",dataUsuario);
     }
 
-    @PUT
+    @POST
+    @Path("/edit")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String update(String json) {
