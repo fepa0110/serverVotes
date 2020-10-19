@@ -83,6 +83,19 @@ public class UsuarioServiceBean implements UsuarioService {
     }
 
     @Override
+    public Usuario findByDni(Usuario usuario){
+        try {
+            return getEntityManager()
+                .createNamedQuery("Usuario.findByDni", Usuario.class)
+                .setParameter("dni", usuario.getDni())
+                .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Usuario findByLogin(Usuario usuario){
         try {
             return getEntityManager()
