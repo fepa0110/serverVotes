@@ -14,19 +14,24 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import model.Sala;
 import model.Usuario;
 import model.OPVotacion;
+import model.Votante;
 
 import stateless.SalaService;
+import stateless.VotanteService;
 
 import servlet.ResponseMessage;
 
@@ -34,6 +39,11 @@ import servlet.ResponseMessage;
 public class SalaRestServlet {
     @EJB
     SalaService salaService;
+
+    @EJB
+    VotanteService votanteService;
+
+    public Logger logger = Logger.getLogger(getClass().getName());
 
     private ObjectMapper mapper;
 
@@ -162,6 +172,40 @@ public class SalaRestServlet {
         }
         return ResponseMessage.message(200,"Sala GENERADA correctamente",data);
     }
+
+    @POST
+    @Path("/addByUsername/{nombreSala}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addVotantesByUsername(String json, @PathParam("nombreSala") String nombreSala) {
+        Sala sala;
+        String data;
+
+        try {
+            List<Usuario> usuarios = mapper.readValue(json, new TypeReference<List<Usuario>>(){});
+            logger.info("Lista de usuarios parseada: ");
+            for (Usuario user : usuarios){
+                logger.info("Usuario recibido: "+user.getUsername());
+            }
+
+            sala = new Sala();
+            sala.setNombre(nombreSala);
+
+            List<Votante> votantesAgregados = votanteService.addVotantesByUsername(usuarios, sala);
+            
+            data = mapper.writeValueAsString(votantesAgregados);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"Votantes AGREGADOS correctamente",data);
+    }
+
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

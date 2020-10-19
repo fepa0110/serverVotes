@@ -1,5 +1,6 @@
 package stateless;
 
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

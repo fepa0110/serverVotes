@@ -1,10 +1,11 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
   <persistence-unit name="mrplite">
-   <jta-data-source>jdbc/votes-db</jta-data-source>
+  <jta-data-source>jdbc/votes-db</jta-data-source>
 
     <class>model.Sala</class>
     <class>model.Usuario</class>
     <class>model.OPVotacion</class>
+    <class>model.Votante</class>
 
     <properties>
       <property name="eclipselink.target-database" value="DERBY"/>
