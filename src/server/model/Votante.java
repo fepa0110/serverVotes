@@ -1,3 +1,4 @@
+
 package model;
 
 import javax.persistence.Id;
@@ -46,11 +47,11 @@ public class Votante {
     private int id;
 
     @ManyToOne(optional=false)
-    @JoinColumn(name="USUARIO_ID",unique=true)
+    @JoinColumn(name="USUARIO_ID")
     public Usuario usuario;
 
     @ManyToOne(optional=false) 
-    @JoinColumn(name="SALA_ID",unique=true)
+    @JoinColumn(name="SALA_ID")
     public Sala sala;
 
     @Column(name="Voto")
