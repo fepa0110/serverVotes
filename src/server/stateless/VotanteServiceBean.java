@@ -61,7 +61,7 @@ public class VotanteServiceBean implements VotanteService {
 
     @Override
     public List<Votante> addVotantesByUsername(List<Usuario> usuarios, Sala sala){
-        sala = salaService.findByNombre(sala.getNombre());
+        sala = salaService.findById(sala);
         List<Votante> votantesAgregados = new ArrayList<Votante>();
         logger.info("Lista recibida: ");
 

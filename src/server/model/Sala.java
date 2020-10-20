@@ -32,7 +32,11 @@ import java.util.Set;
       @NamedQuery(name="Sala.findByUsername",
          query="SELECT sala "+ 
                "FROM Sala sala "+
-               "WHERE sala.usuario.username = :username")
+               "WHERE sala.usuario.username = :username"),
+      @NamedQuery(name="Sala.findByUserVotante",
+         query="SELECT votante.sala "+ 
+               "FROM Votante votante "+
+               "WHERE votante.usuario.username = :username")
 })
 
 @Entity
