@@ -28,11 +28,12 @@ import model.Sala;
     @NamedQuery(name="Usuario.findByEmail",
         query="SELECT usuario "+ 
             "FROM Usuario usuario "+
-            "WHERE UPPER(usuario.correoElectronico) LIKE UPPER(:email)"),
+            "WHERE UPPER(usuario.correoElectronico) = UPPER(:email) "+
+            "AND UPPER(usuario.username) != UPPER(:username)"),
     @NamedQuery(name="Usuario.findByDni",
         query="SELECT usuario "+ 
-             "FROM Usuario usuario "+
-             "WHERE UPPER(usuario.dni) LIKE UPPER(:dni)"),
+                "FROM Usuario usuario "+
+                "WHERE UPPER(usuario.dni) LIKE UPPER(:dni)"),
     @NamedQuery(name="Usuario.findByLogin",
         query="SELECT usuario "+ 
             "FROM Usuario usuario "+

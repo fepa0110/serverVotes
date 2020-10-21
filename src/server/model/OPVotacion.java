@@ -35,10 +35,6 @@ public class OPVotacion {
 
    private String descripcion;
 
-//   @ManyToOne(optional=false) 
-//   @JoinColumn(name="Sala_ID", nullable=false, updatable=false)
-//   private Sala sala;
-
    public OPVotacion () {}
 
    public int getId() {
@@ -64,15 +60,7 @@ public class OPVotacion {
    public void setDescripcion(String descripcion) { 
       this.descripcion = descripcion;
    }
-
-/*   public Sala getSala() { 
-      return this.sala; 
-   }
-
-   public void setSala(Sala sala) { 
-      this.sala = sala;
-   }
-*/
+   
    @Override
    public boolean equals(Object obj){
       if(obj == this){

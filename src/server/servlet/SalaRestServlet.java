@@ -195,39 +195,6 @@ public class SalaRestServlet {
         return ResponseMessage.message(200,"Sala GENERADA correctamente",data);
     }
 
-    /* @POST
-    @Path("/addByUsername/{nombreSala}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String addVotantesByUsername(String json, @PathParam("nombreSala") String nombreSala) {
-        Sala sala;
-        String data;
-
-        try {
-            List<Usuario> usuarios = mapper.readValue(json, new TypeReference<List<Usuario>>(){});
-            logger.info("Lista de usuarios parseada: ");
-            for (Usuario user : usuarios){
-                logger.info("Usuario recibido: "+user.getUsername());
-            }
-
-            sala = new Sala();
-            sala.setNombre(nombreSala);
-
-            List<Votante> votantesAgregados = votanteService.addVotantesByUsername(usuarios, sala);
-            
-            data = mapper.writeValueAsString(votantesAgregados);
-        } 
-        catch (JsonProcessingException e) {
-            return ResponseMessage
-                .message(502, "No se pudo dar formato a la salida", e.getMessage());
-        } 
-        catch (IOException e) {
-            return ResponseMessage
-                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
-        }
-        return ResponseMessage.message(200,"Votantes AGREGADOS correctamente",data);
-    } */
-
     @POST
     @Path("/addByUsername/{idSala}")
     @Consumes(MediaType.APPLICATION_JSON)

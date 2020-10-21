@@ -76,6 +76,7 @@ public class UsuarioServiceBean implements UsuarioService {
             return getEntityManager()
                 .createNamedQuery("Usuario.findByEmail", Usuario.class)
                 .setParameter("email", usuario.getCorreoElectronico())
+                .setParameter("username", usuario.getUsername())
                 .getSingleResult();
         } 
         catch (NoResultException e) {
