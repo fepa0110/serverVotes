@@ -64,6 +64,19 @@ public class SalaServiceBean implements SalaService{
     }
 
     @Override
+    public List<Sala> findByUserVotante(Usuario usuario){
+                try {
+            return getEntityManager()
+                .createNamedQuery("Sala.findByUserVotante", Sala.class)
+                .setParameter("username", usuario.getUsername())
+                .getResultList();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Sala create(Sala sala, Usuario usuario){
         if(findByNombre(sala.getNombre()) == null){
             

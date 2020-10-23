@@ -1,5 +1,7 @@
 package stateless;
 
+import java.util.Collection;
+
 import model.Usuario;
 
 public interface UsuarioService{
@@ -10,4 +12,5 @@ public interface UsuarioService{
     public Usuario findByLogin(Usuario usuario);
     public Usuario autenticarUsuario(Usuario usuario);
     public Usuario update(Usuario usuario);
+    public Collection<Usuario> search(String name);
 }

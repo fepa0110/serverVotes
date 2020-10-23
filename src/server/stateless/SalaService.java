@@ -11,6 +11,7 @@ import model.OPVotacion;
 public interface SalaService{
     public List<Sala> findAll();
     public List<Sala> findAllOpVt();
+    public List<Sala> findByUserVotante(Usuario usuario);
     public Sala findById(Sala sala);
     public Sala create(Sala sala, Usuario usuario);
     public Sala update(Sala sala);

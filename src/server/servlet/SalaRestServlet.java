@@ -118,6 +118,28 @@ public class SalaRestServlet {
     }
 
     @GET
+    @Path("/userVotante/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findById(@PathParam("username") String username) throws IOException {
+        String data;
+
+        Usuario usuario = new Usuario();
+        usuario.setUsername(username);
+
+        List<Sala> salas = salaService.findByUserVotante(usuario);
+        
+        try { 
+            data = mapper.writeValueAsString(salas);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Salas recuperadas con éxito",data);
+    }
+
+    @GET
     @Path("/user/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public String findAll(@PathParam("username") String username) throws IOException{
@@ -174,10 +196,10 @@ public class SalaRestServlet {
     }
 
     @POST
-    @Path("/addByUsername/{nombreSala}")
+    @Path("/addByUsername/{idSala}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String addVotantesByUsername(String json, @PathParam("nombreSala") String nombreSala) {
+    public String addVotantesByUsername(String json, @PathParam("idSala") int idSala) {
         Sala sala;
         String data;
 
@@ -189,7 +211,7 @@ public class SalaRestServlet {
             }
 
             sala = new Sala();
-            sala.setNombre(nombreSala);
+            sala.setId(idSala);
 
             List<Votante> votantesAgregados = votanteService.addVotantesByUsername(usuarios, sala);
             
@@ -205,7 +227,6 @@ public class SalaRestServlet {
         }
         return ResponseMessage.message(200,"Votantes AGREGADOS correctamente",data);
     }
-
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

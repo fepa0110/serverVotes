@@ -211,4 +211,28 @@ public class UsuarioRestServlet {
         }
         return ResponseMessage.message(200,"Usuario "+usuario.getUsername()+" recuperado con éxito",dataUsuario);
     }
+
+    @GET
+    @Path("/search/{search}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String search(@PathParam("search") String search) {
+
+        // Se modifica este método para que utilice el servicio
+        Collection<Usuario> usuarios = usuarioService.search(search);
+
+        if (usuarios == null || usuarios.isEmpty()){
+            return ResponseMessage.message(505, "No existe usuario para la búsqueda indicada: " + search);
+        }
+
+        String data;
+        try {
+
+        data = mapper.writeValueAsString(usuarios);
+
+        } catch (IOException e) {
+        return ResponseMessage.message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+
+        return ResponseMessage.message(200, "Se recuperaron los usuarios buscados", data);
+    }
 }
