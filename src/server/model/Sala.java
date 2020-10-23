@@ -45,6 +45,8 @@ public class Sala {
    @Column(name="nombre",unique=true)
    private String nombre;
 
+   private String contrasenia;
+
    @ManyToOne(optional=false,cascade=CascadeType.ALL) 
    @JoinColumn(name="USUARIO", nullable=false, updatable=false)
    private Usuario usuario;
@@ -68,6 +70,14 @@ public class Sala {
 
    public void setNombre(String nombre) {
       this.nombre = nombre;
+   }
+
+   public String getContrasenia() {
+      return this.contrasenia;
+   }
+
+   public void setContrasenia(String contrasenia) {
+      this.contrasenia = contrasenia;
    }
 
    public Usuario getUsuario() { 
