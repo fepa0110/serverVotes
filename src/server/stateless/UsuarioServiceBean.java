@@ -1,5 +1,7 @@
 package stateless;
 
+import java.util.Collection;
+
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.ejb.Stateless;
@@ -115,5 +117,13 @@ public class UsuarioServiceBean implements UsuarioService {
     public Usuario autenticarUsuario(Usuario usuario){
         Usuario usuarioPersistido = this.findByLogin(usuario);
         return usuarioPersistido;
+    }
+
+    @Override
+    public Collection<Usuario> search(String name) {
+        return em.createQuery("SELECT usuario from Usuario usuario "+
+                                "WHERE UPPER(usuario.username) "+ 
+                                "LIKE CONCAT('%',UPPER(:usuario_username),'%')", Usuario.class)
+            .setParameter("usuario_username", name).getResultList();
     }
 }
