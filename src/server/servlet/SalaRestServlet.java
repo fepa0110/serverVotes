@@ -281,4 +281,32 @@ public class SalaRestServlet {
 
         return ResponseMessage.message(200, "Se recuperaron los tipo de equipos buscados", data);
     }
+    @POST
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String create(@PathParam("id") int sala_id, String json) {
+        Sala sala;
+        Sala sala2;
+        String data;
+
+        try {
+            sala = mapper.readValue(json, Sala.class);
+            sala.setId(sala_id);
+            sala2 = salaService.findById(sala);
+            sala2.setContrasenia(sala.getContrasenia());
+            salaService.update(sala2);
+            //opVotacion = opVotacionService.create(opVotacion, sala_id);
+            data = mapper.writeValueAsString(sala);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"contraseña guardada correctamente",data);
+    }
+
 }
