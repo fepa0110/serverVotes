@@ -297,7 +297,7 @@ public class SalaRestServlet {
             sala2.setContrasenia(sala.getContrasenia());
             salaService.update(sala2);
             //opVotacion = opVotacionService.create(opVotacion, sala_id);
-            data = mapper.writeValueAsString(sala);
+            data = mapper.writeValueAsString(sala2);
         } 
         catch (JsonProcessingException e) {
             return ResponseMessage
