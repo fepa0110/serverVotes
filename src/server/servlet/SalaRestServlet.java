@@ -283,7 +283,7 @@ public class SalaRestServlet {
     }
     
     @POST
-    @Path("/{id}")
+    @Path("/contrasenia/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public String create(@PathParam("id") int sala_id, String json) {
         Sala sala;
@@ -296,8 +296,7 @@ public class SalaRestServlet {
             sala2 = salaService.findById(sala);
             sala2.setContrasenia(sala.getContrasenia());
             salaService.update(sala2);
-            //opVotacion = opVotacionService.create(opVotacion, sala_id);
-            data = mapper.writeValueAsString(sala);
+            data = mapper.writeValueAsString(sala2);
         } 
         catch (JsonProcessingException e) {
             return ResponseMessage
