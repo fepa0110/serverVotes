@@ -48,6 +48,29 @@ public class UsuarioRestServlet {
         mapper.setDateFormat(df);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findAll(@PathParam("username") String username) throws IOException{
+        Usuario usuario = new Usuario();
+        usuario.setUsername(username);
+
+        // Se modifica este método para que utilice el servicio
+        List<Usuario> usuarios = usuarioService.findAll();
+
+        // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
+        String data;
+
+        try {  
+            data = mapper.writeValueAsString(usuarios);
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+            .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Usuarios recuperados con éxito",data);
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

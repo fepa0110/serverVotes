@@ -1,6 +1,7 @@
 package stateless;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
@@ -27,6 +28,18 @@ public class UsuarioServiceBean implements UsuarioService {
         //usuario.setUsername(usuario.getUsername());
         em.persist(usuario);
         return usuario;
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+        try {
+            return getEntityManager()
+                .createNamedQuery("Usuario.findAll", Usuario.class)
+                .getResultList();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override
