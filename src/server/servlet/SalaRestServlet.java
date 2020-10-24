@@ -281,6 +281,7 @@ public class SalaRestServlet {
 
         return ResponseMessage.message(200, "Se recuperaron los tipo de equipos buscados", data);
     }
+    
     @POST
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
