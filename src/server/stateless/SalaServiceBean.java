@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Collection;
 
 import model.Sala;
+import model.EstadoSala;
 import model.Usuario;
 import model.OPVotacion;
 
@@ -79,9 +80,10 @@ public class SalaServiceBean implements SalaService{
     @Override
     public Sala create(Sala sala, Usuario usuario){
         if(findByNombre(sala.getNombre()) == null){
-            
             usuario = usuarioService.findByUsername(usuario);
             sala.setUsuario(usuario);
+
+            sala.setEstado(EstadoSala.PENDIENTE);
 
             em.persist(sala);
             return sala;

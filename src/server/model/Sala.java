@@ -11,8 +11,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
+import javax.persistence.Convert;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import java.util.List;
 import java.util.Set;
+
+import model.EstadoSalaConverter;
+import model.EstadoSala;
 
 @NamedQueries({
       @NamedQuery(name="Sala.findAll",
@@ -59,6 +66,9 @@ public class Sala {
    @JoinColumn(name="Sala_ID") // join column is in table for Order
    private List<OPVotacion> opVotacion;
 
+   @Convert(converter = EstadoSalaConverter.class)
+   @Enumerated(EnumType.STRING)
+   private EstadoSala estado;
 
    public int getId() {
       return this.id;
@@ -100,6 +110,15 @@ public class Sala {
    public void setOpVotacion(List opVotacion) 
    {
       this.opVotacion = opVotacion;
+   }
+
+
+   public EstadoSala getEstado() { 
+      return this.estado; 
+   }
+
+   public void setEstado(EstadoSala estado) { 
+      this.estado = estado;
    }
 
    @Override
