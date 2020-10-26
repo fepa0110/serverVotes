@@ -81,4 +81,16 @@ public class VotanteDniServiceBean implements VotanteDniService {
             }
         return votantesAgregados;
     }
+
+    public List<VotanteDni> findBySala(Sala sala){
+        try {
+            return getEntityManager()
+                .createNamedQuery("VotanteDni.findBySala", VotanteDni.class)
+                .setParameter("sala_id", sala.getId())
+                .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
 }

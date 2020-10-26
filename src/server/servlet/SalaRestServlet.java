@@ -243,6 +243,32 @@ public class SalaRestServlet {
         return ResponseMessage.message(200,"Votantes AGREGADOS correctamente",data);
     }
 
+    
+    @GET
+    @Path("/addByDni/{idSala}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findByDniSala(@PathParam("idSala") int salaId) throws IOException{
+        Sala sala = new Sala();
+        sala.setId(sala_id);
+
+        // Se modifica este método para que utilice el servicio
+        List<VotanteDni> votantes = votanteDniService.findBySala(sala);
+
+        // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
+        String data;
+
+        try {  
+            data = mapper.writeValueAsString(votantes);
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+            .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Votantes DNI recuperad@s con éxito",data);
+    }
+
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
