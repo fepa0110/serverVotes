@@ -29,9 +29,11 @@ import model.Sala;
 import model.Usuario;
 import model.OPVotacion;
 import model.Votante;
+import model.VotanteDni;
 
 import stateless.SalaService;
 import stateless.VotanteService;
+import stateless.VotanteDniService;
 
 import servlet.ResponseMessage;
 
@@ -42,6 +44,9 @@ public class SalaRestServlet {
 
     @EJB
     VotanteService votanteService;
+
+    @EJB
+    VotanteDniService votanteDniService;
 
     public Logger logger = Logger.getLogger(getClass().getName());
 
@@ -63,29 +68,6 @@ public class SalaRestServlet {
 
         try {  
             data = mapper.writeValueAsString(salas);
-        } 
-        catch (IOException e) {
-            return ResponseMessage
-            .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
-        }
-
-        return ResponseMessage.message(200,"Salas recuperadas con éxito",data);
-    }
-
-    
-    @GET
-    @Path("/{id}/OpVt")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String findAllOpVt() throws IOException{
-
-            // Se modifica este método para que utilice el servicio
-        List<Sala> op = salaService.findAllOpVt();
-
-        // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
-        String data;
-
-        try {  
-            data = mapper.writeValueAsString(op);
         } 
         catch (IOException e) {
             return ResponseMessage
@@ -214,6 +196,39 @@ public class SalaRestServlet {
             sala.setId(idSala);
 
             List<Votante> votantesAgregados = votanteService.addVotantesByUsername(usuarios, sala);
+            
+            data = mapper.writeValueAsString(votantesAgregados);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"Votantes AGREGADOS correctamente",data);
+    }
+
+    @POST
+    @Path("/addByDni/{idSala}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addVotantesByDni(String json, @PathParam("idSala") int idSala) {
+        Sala sala;
+        String data;
+
+        try {
+            List<Usuario> usuarios = mapper.readValue(json, new TypeReference<List<Usuario>>(){});
+            logger.info("Lista de usuarios parseada: ");
+            for (Usuario user : usuarios){
+                logger.info("Usuario recibido: "+user.getUsername());
+            }
+
+            sala = new Sala();
+            sala.setId(idSala);
+
+            List<VotanteDni> votantesAgregados = votanteDniService.addVotantesByDni(usuarios, sala);
             
             data = mapper.writeValueAsString(votantesAgregados);
         } 
