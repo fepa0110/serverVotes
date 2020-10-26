@@ -138,4 +138,12 @@ public class SalaServiceBean implements SalaService{
                                 "LIKE CONCAT('%',UPPER(:sala_nombre),'%')", Sala.class)
             .setParameter("sala_nombre", name).getResultList();
     }
+
+    @Override
+    public Sala finalizar(Sala sala){
+        sala.setEstado(EstadoSala.FINALIZADA);
+
+        em.merge(sala);
+        return sala;
+    }
 }

@@ -120,7 +120,7 @@ public class SalaRestServlet {
     @GET
     @Path("/userVotante/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String findById(@PathParam("username") String username) throws IOException {
+    public String findByVotante(@PathParam("username") String username) throws IOException {
         String data;
 
         Usuario usuario = new Usuario();
@@ -307,6 +307,28 @@ public class SalaRestServlet {
                 .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
         }
         return ResponseMessage.message(200,"contraseña guardada correctamente",data);
+    }
+
+    @GET    
+    @Path("/finalizar/{idSala}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String finalizar(@PathParam("idSala") int idSala) {
+        Sala sala;
+        String data;
+
+        sala = new Sala();
+        sala.setId(idSala);
+
+        try {
+            sala = salaService.finalizar(sala);
+            data = mapper.writeValueAsString(sala);
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"Sala FINALIZADA correctamente",data);
     }
 
 }

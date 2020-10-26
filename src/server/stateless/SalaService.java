@@ -19,4 +19,5 @@ public interface SalaService{
     public Collection<Sala> search(String name);
     public Sala findByNombre(String nombre);
     public List<Sala> findByUsername(Usuario usuario);
+    public Sala finalizar(Sala sala);
 }
