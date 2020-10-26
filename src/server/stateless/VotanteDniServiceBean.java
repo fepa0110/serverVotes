@@ -87,7 +87,7 @@ public class VotanteDniServiceBean implements VotanteDniService {
             return getEntityManager()
                 .createNamedQuery("VotanteDni.findBySala", VotanteDni.class)
                 .setParameter("sala_id", sala.getId())
-                .getSingleResult();
+                .getResultList();
         } 
         catch (NoResultException e) {
             return null;

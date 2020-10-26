@@ -249,7 +249,7 @@ public class SalaRestServlet {
     @Produces(MediaType.APPLICATION_JSON)
     public String findByDniSala(@PathParam("idSala") int salaId) throws IOException{
         Sala sala = new Sala();
-        sala.setId(sala_id);
+        sala.setId(salaId);
 
         // Se modifica este método para que utilice el servicio
         List<VotanteDni> votantes = votanteDniService.findBySala(sala);
