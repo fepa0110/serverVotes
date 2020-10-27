@@ -30,6 +30,7 @@ import model.Usuario;
 import model.OPVotacion;
 import model.Votante;
 import model.VotanteDni;
+import model.EstadoSala;
 
 import stateless.SalaService;
 import stateless.VotanteService;
@@ -291,6 +292,7 @@ public class SalaRestServlet {
         }
         return ResponseMessage.message(200,"Sala MODIFICADO correctamente",data);
     }
+    
 
     @DELETE
     @Path("/{id}")
@@ -370,6 +372,36 @@ public class SalaRestServlet {
                 .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
         }
         return ResponseMessage.message(200,"Sala FINALIZADA correctamente",data);
+    }
+
+    @PUT
+    @Path("/estadoSala/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updateEstado(@PathParam("id") int sala_id, String json) {
+        Sala sala;
+        String data;
+        Sala sala2;
+
+        try {
+            sala = new Sala();
+            sala.setId(sala_id);
+            sala = salaService.findById(sala);
+            sala2 = mapper.readValue(json, Sala.class);
+            sala.setEstado(sala2.getEstado());
+            salaService.update(sala);
+            //opVotacion = opVotacionService.create(opVotacion, sala_id);
+            data = mapper.writeValueAsString(sala);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Estado GENERADO correctamente",data);
     }
 
 }
