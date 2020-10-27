@@ -93,4 +93,23 @@ public class VotanteDniServiceBean implements VotanteDniService {
             return null;
         }
     }
+
+    public VotanteDni findByVotante(Sala sala, Usuario usuario){
+        try {
+            return getEntityManager()
+            .createNamedQuery("VotanteDni.findByDni", VotanteDni.class)
+            .setParameter("dni", usuario.getDni())
+            .setParameter("sala_id", sala.getId())
+            .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public VotanteDni update(VotanteDni votanteDni) {
+        em.merge(votanteDni);
+        return votanteDni;
+    }
 }

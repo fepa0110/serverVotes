@@ -36,6 +36,7 @@ import stateless.UsuarioService;
 import stateless.SalaService;
 import stateless.VotanteService;
 import stateless.VotanteDniService;
+import stateless.OPVotacionService;
 
 import servlet.ResponseMessage;
 
@@ -52,6 +53,9 @@ public class SalaRestServlet {
 
     @EJB
     UsuarioService usuarioService;
+
+    @EJB
+    OPVotacionService opVotacionService;
 
     public Logger logger = Logger.getLogger(getClass().getName());
 
@@ -435,6 +439,51 @@ public class SalaRestServlet {
         }
 
         return ResponseMessage.message(200,"Estado GENERADO correctamente",data);
+    }
+
+
+    @PUT
+    @Path("/addVotacion/{id}/{userName}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String votacion(@PathParam("id") int sala_id,@PathParam("userName") String userName, String json) {
+        OPVotacion opVotacion;
+        Sala sala;
+        Usuario usuario;
+        Votante votante;
+        VotanteDni votanteDni;
+        String data;
+
+        try {
+            opVotacion = mapper.readValue(json, OPVotacion.class);
+            opVotacion = opVotacionService.update(opVotacion);
+            
+            sala = new Sala();
+            sala.setId(sala_id);
+            sala = salaService.findById(sala);
+
+            usuario = new Usuario();
+            usuario.setUsername(userName);
+            usuario = usuarioService.findByUsername(usuario);
+
+            votante = votanteService.findByVotante(sala, usuario);
+            votante.setVoto(true);
+            votante = votanteService.update(votante);
+
+            votanteDni = votanteDniService.findByVotante(sala, usuario);
+            votanteDni.setVoto(true);
+            votanteDni = votanteDniService.update(votanteDni);
+
+            data = mapper.writeValueAsString(opVotacion);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"contraseña guardada correctamente",data);
     }
 
 }

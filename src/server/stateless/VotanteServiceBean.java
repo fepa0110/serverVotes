@@ -89,4 +89,23 @@ public class VotanteServiceBean implements VotanteService {
 
         return votantesAgregados;
     }
+
+    public Votante findByVotante(Sala sala, Usuario usuario){
+        try {
+            return getEntityManager()
+            .createNamedQuery("Votante.findByUsername", Votante.class)
+            .setParameter("usuario_id", usuario.getId())
+            .setParameter("sala_id", sala.getId())
+            .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Votante update(Votante votante) {
+        em.merge(votante);
+        return votante;
+    }
 }
