@@ -141,6 +141,7 @@ public class SalaServiceBean implements SalaService{
 
     @Override
     public Sala finalizar(Sala sala){
+        sala = this.findById(sala);
         sala.setEstado(EstadoSala.FINALIZADA);
 
         em.merge(sala);
