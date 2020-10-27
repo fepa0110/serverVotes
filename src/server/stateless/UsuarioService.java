@@ -10,6 +10,7 @@ public interface UsuarioService{
     public List<Usuario> findAll();
     public Usuario findByUsername(Usuario usuario);
     public Usuario findByEmail(Usuario usuario);
+    public Usuario findEmailExists(Usuario usuario);
     public Usuario findByDni(Usuario usuario);
     public Usuario findByLogin(Usuario usuario);
     public Usuario autenticarUsuario(Usuario usuario);

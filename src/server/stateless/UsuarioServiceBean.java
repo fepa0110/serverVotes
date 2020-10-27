@@ -100,6 +100,19 @@ public class UsuarioServiceBean implements UsuarioService {
     }
 
     @Override
+    public Usuario findEmailExists(Usuario usuario){
+        try {
+            return getEntityManager()
+                .createNamedQuery("Usuario.findEmailExists", Usuario.class)
+                .setParameter("email", usuario.getCorreoElectronico())
+                .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Usuario findByDni(Usuario usuario){
         try {
             return getEntityManager()

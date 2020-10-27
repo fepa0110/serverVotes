@@ -30,6 +30,10 @@ import model.Sala;
             "FROM Usuario usuario "+
             "WHERE UPPER(usuario.correoElectronico) = UPPER(:email) "+
             "AND UPPER(usuario.username) != UPPER(:username)"),
+    @NamedQuery(name="Usuario.findEmailExists",
+        query="SELECT usuario "+ 
+            "FROM Usuario usuario "+
+            "WHERE UPPER(usuario.correoElectronico) = UPPER(:email)"),
     @NamedQuery(name="Usuario.findByDni",
         query="SELECT usuario "+ 
                 "FROM Usuario usuario "+
