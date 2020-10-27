@@ -456,7 +456,7 @@ public class SalaRestServlet {
         try {
             opVotacion = mapper.readValue(json, OPVotacion.class);
             opVotacion = opVotacionService.update(opVotacion);
-            
+            /*
             sala = new Sala();
             sala.setId(sala_id);
             sala = salaService.findById(sala);
@@ -472,7 +472,7 @@ public class SalaRestServlet {
             votanteDni = votanteDniService.findByVotante(sala, usuario);
             votanteDni.setVoto(true);
             votanteDni = votanteDniService.update(votanteDni);
-
+            */
             data = mapper.writeValueAsString(opVotacion);
         } 
         catch (JsonProcessingException e) {
@@ -483,7 +483,7 @@ public class SalaRestServlet {
             return ResponseMessage
                 .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
         }
-        return ResponseMessage.message(200,"contraseña guardada correctamente",data);
+        return ResponseMessage.message(200,"Votacion agregada correctamente",data);
     }
 
 }
