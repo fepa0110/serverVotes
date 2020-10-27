@@ -456,7 +456,7 @@ public class SalaRestServlet {
         try {
             opVotacion = mapper.readValue(json, OPVotacion.class);
             opVotacion = opVotacionService.update(opVotacion);
-            /*
+            
             sala = new Sala();
             sala.setId(sala_id);
             sala = salaService.findById(sala);
@@ -466,13 +466,16 @@ public class SalaRestServlet {
             usuario = usuarioService.findByUsername(usuario);
 
             votante = votanteService.findByVotante(sala, usuario);
-            votante.setVoto(true);
-            votante = votanteService.update(votante);
+            if(votante != null){
+                votante.setVoto(true);
+                votante = votanteService.update(votante);
+            }
 
             votanteDni = votanteDniService.findByVotante(sala, usuario);
-            votanteDni.setVoto(true);
-            votanteDni = votanteDniService.update(votanteDni);
-            */
+            if(votanteDni != null){ 
+                votanteDni.setVoto(true);
+                votanteDni = votanteDniService.update(votanteDni);
+            }
             data = mapper.writeValueAsString(opVotacion);
         } 
         catch (JsonProcessingException e) {
