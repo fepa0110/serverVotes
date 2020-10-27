@@ -35,6 +35,8 @@ public class OPVotacion {
 
    private String descripcion;
 
+   private int cantVotos;
+
    public OPVotacion () {}
 
    public int getId() {
@@ -59,6 +61,14 @@ public class OPVotacion {
 
    public void setDescripcion(String descripcion) { 
       this.descripcion = descripcion;
+   }
+
+   public int getCantVotos() {
+      return this.cantVotos;
+   }
+
+   public void setCantVotos(int cantVotos) {
+      this.cantVotos = cantVotos;
    }
    
    @Override

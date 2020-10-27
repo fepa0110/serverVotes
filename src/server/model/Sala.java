@@ -43,7 +43,11 @@ import model.EstadoSala;
       @NamedQuery(name="Sala.findByUserVotante",
          query="SELECT votante.sala "+ 
                "FROM Votante votante "+
-               "WHERE votante.usuario.username = :username")
+               "WHERE votante.usuario.username = :username"),
+      @NamedQuery(name="Sala.findByUserVotanteDni",
+         query="SELECT votanteDni.sala "+ 
+               "FROM VotanteDni votanteDni "+
+               "WHERE votanteDni.dni = :dni")
 })
 
 @Entity

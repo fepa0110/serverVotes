@@ -32,6 +32,7 @@ import model.Votante;
 import model.VotanteDni;
 import model.EstadoSala;
 
+import stateless.UsuarioService;
 import stateless.SalaService;
 import stateless.VotanteService;
 import stateless.VotanteDniService;
@@ -48,6 +49,9 @@ public class SalaRestServlet {
 
     @EJB
     VotanteDniService votanteDniService;
+
+    @EJB
+    UsuarioService usuarioService;
 
     public Logger logger = Logger.getLogger(getClass().getName());
 
@@ -105,11 +109,40 @@ public class SalaRestServlet {
     @Produces(MediaType.APPLICATION_JSON)
     public String findByVotante(@PathParam("username") String username) throws IOException {
         String data;
+        String data2;
+        String data3;
 
         Usuario usuario = new Usuario();
         usuario.setUsername(username);
 
         List<Sala> salas = salaService.findByUserVotante(usuario);
+//        usuario = usuarioService.findByUsername(usuario);
+//        List<Sala> salas2 = salaService.findByUserVotanteDni(usuario);
+        
+        try { 
+            data = mapper.writeValueAsString(salas);
+//            data2 = mapper.writeValueAsString(salas2);
+//            data3 = data +","+ data2;
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Salas recuperadas con éxito",data);
+    }
+
+    @GET
+    @Path("/userVotanteDni/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findByVotanteDni(@PathParam("username") String username) throws IOException {
+        String data;
+
+        Usuario usuario = new Usuario();
+        usuario.setUsername(username);
+
+        usuario = usuarioService.findByUsername(usuario);
+        List<Sala> salas = salaService.findByUserVotanteDni(usuario);
         
         try { 
             data = mapper.writeValueAsString(salas);
