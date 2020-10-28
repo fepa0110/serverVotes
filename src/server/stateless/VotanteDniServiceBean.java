@@ -44,6 +44,13 @@ public class VotanteDniServiceBean implements VotanteDniService {
     }
 
     @Override
+    public VotanteDni remove(VotanteDni votanteDni) {
+        em.remove(votanteDni);
+        return votanteDni;
+    }
+
+
+    @Override
     public Boolean estaAgregado(Usuario usuario, Sala sala){
         VotanteDni votanteBuscado;
         try {

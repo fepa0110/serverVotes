@@ -62,7 +62,7 @@ public class Sala {
 
    private String contrasenia;
 
-   @ManyToOne(optional=false,cascade=CascadeType.ALL) 
+   @ManyToOne(optional=false) 
    @JoinColumn(name="USUARIO", nullable=false, updatable=false)
    private Usuario usuario;
 

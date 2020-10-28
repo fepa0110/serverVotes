@@ -8,6 +8,7 @@ import model.Sala;
 
 public interface VotanteDniService{
     public VotanteDni create(VotanteDni votanteDni);
+    public VotanteDni remove(VotanteDni votanteDni);
     public List<VotanteDni> addVotantesByDni(List<Usuario> usuariosDni, Sala sala);
     public Boolean estaAgregado(Usuario usuario, Sala sala);
     public VotanteDni update(VotanteDni votanteDni);

@@ -15,6 +15,8 @@ import model.Sala;
 import model.EstadoSala;
 import model.Usuario;
 import model.OPVotacion;
+import model.Votante;
+import model.VotanteDni;
 
 import stateless.SalaService;
 
@@ -25,6 +27,12 @@ public class SalaServiceBean implements SalaService{
 
     @EJB
     private UsuarioService usuarioService;
+
+    @EJB
+    private VotanteService votanteService;
+
+    @EJB
+    private VotanteDniService votanteDniService;
 
     public EntityManager getEntityManager() {
         return em;
@@ -115,6 +123,23 @@ public class SalaServiceBean implements SalaService{
         Sala sala = new Sala();
         sala.setId(id);
         sala = findById(sala);
+
+        List<Votante> votantes = votanteService.findBySala(sala);
+        if(votantes != null){
+
+            for(Votante votante : votantes){
+                votanteService.remove(votante);
+            }
+        }
+
+        List<VotanteDni> votantesDni = votanteDniService.findBySala(sala);
+        if(votantesDni != null){
+
+            for(VotanteDni votanteDni : votantesDni){
+                votanteDniService.remove(votanteDni);
+            }
+        }
+
         em.remove(sala);
     }
 

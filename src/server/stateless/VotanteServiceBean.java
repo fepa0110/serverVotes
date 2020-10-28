@@ -44,6 +44,12 @@ public class VotanteServiceBean implements VotanteService {
     }
 
     @Override
+    public Votante remove(Votante votante) {
+        em.remove(votante);
+        return votante;
+    }
+
+    @Override
     public Boolean estaAgregado(Usuario usuario, Sala sala){
         Votante votanteBuscado;
         try {
@@ -97,6 +103,18 @@ public class VotanteServiceBean implements VotanteService {
             .setParameter("usuario_id", usuario.getId())
             .setParameter("sala_id", sala.getId())
             .getSingleResult();
+        } 
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Votante> findBySala(Sala sala){
+        try {
+            return getEntityManager()
+            .createNamedQuery("Votante.findBySala", Votante.class)
+            .setParameter("sala_id", sala.getId())
+            .getResultList();
         } 
         catch (NoResultException e) {
             return null;

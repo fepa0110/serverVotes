@@ -50,7 +50,7 @@ public class Votante {
     @JoinColumn(name="USUARIO_ID")
     public Usuario usuario;
 
-    @ManyToOne(optional=false) 
+    @ManyToOne(optional=false, cascade=CascadeType.ALL) 
     @JoinColumn(name="SALA_ID")
     public Sala sala;
 
