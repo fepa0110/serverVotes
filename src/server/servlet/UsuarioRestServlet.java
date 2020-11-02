@@ -265,7 +265,7 @@ public class UsuarioRestServlet {
     }
 
     @POST
-    @Path("/username")
+    @Path("/usernames")
     @Produces(MediaType.APPLICATION_JSON)
     public String findByUsernames(String json) throws IOException {
         Usuario usuario;
