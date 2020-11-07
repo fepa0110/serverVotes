@@ -29,6 +29,10 @@ import model.Usuario;
 
 import stateless.UsuarioService;
 
+import stateless.UsuarioFilterService;
+
+import stateless.dto.UsuarioComprensionDto;
+
 import servlet.ResponseMessage;
 
 
@@ -36,6 +40,9 @@ import servlet.ResponseMessage;
 public class UsuarioRestServlet {
     @EJB
     UsuarioService usuarioService;
+
+    @EJB
+    UsuarioFilterService usuarioFilterService;
 
     private ObjectMapper mapper;
 
@@ -293,6 +300,35 @@ public class UsuarioRestServlet {
         return ResponseMessage.message(200,"Usuario "+usuario.getUsername()+" recuperado con éxito",dataUsuario);
     }
 
+    @POST
+    @Path("/filterByComprension")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String filterByComprension(String json) throws IOException{
+        UsuarioComprensionDto filtroComprension;
+        String data;
+
+        try {
+            filtroComprension = mapper.readValue(json, UsuarioComprensionDto.class);
+            Collection<Usuario> usuariosFiltrados = usuarioFilterService.findByCompresion(filtroComprension);
+            
+
+        if (usuariosFiltrados == null || usuariosFiltrados.isEmpty()){
+            return ResponseMessage.message(505, "No existen usuarios para la búsqueda indicada.");
+        }
+        
+            data = mapper.writeValueAsString(usuariosFiltrados);
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        } 
+        catch (IOException e) {
+            return ResponseMessage
+                .message(501, "Formato incorrecto en datos de entrada", e.getMessage());
+        }
+        return ResponseMessage.message(200,"Se recuperaron los usuarios buscados",data);
+    }
 
     @GET
     @Path("/search/{search}")
