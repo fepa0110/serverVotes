@@ -335,7 +335,7 @@ public class SalaRestServlet {
     @Path("/{id}")
     public String remove(@PathParam("id") int id) {
         salaService.remove(id);
-        return ResponseMessage.message(200,"Se eliminó correctamente el tipo de equipo");
+        return ResponseMessage.message(200,"Sala eliminada correctamente");
     }
 
     @GET

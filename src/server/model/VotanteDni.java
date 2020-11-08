@@ -47,7 +47,7 @@ public class VotanteDni {
 
     public String dni;
 
-    @ManyToOne(optional=false) 
+    @ManyToOne(optional=false,cascade=CascadeType.ALL) 
     @JoinColumn(name="SALA_ID")
     public Sala sala;
 
