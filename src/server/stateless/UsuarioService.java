@@ -15,5 +15,6 @@ public interface UsuarioService{
     public Usuario findByLogin(Usuario usuario);
     public Usuario autenticarUsuario(Usuario usuario);
     public Usuario update(Usuario usuario);
+    public Usuario addUbicacion(Usuario usuario);
     public Collection<Usuario> search(String name);
 }
