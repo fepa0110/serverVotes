@@ -52,9 +52,11 @@ public class SeguridadServiceBean implements SeguridadService{
     @Override
     public Seguridad create(Seguridad seguridad) {
         List<Seguridad> segu = findById(seguridad.getUsuario());
-        for (int i=0; i<segu.size(); i++){
-            if(segu.get(i).getIdSmartPhone().equals(seguridad.getIdSmartPhone())){
-                return null;
+        if (segu != null){
+            for (int i=0; i<segu.size(); i++){
+                if(segu.get(i).getIdSmartPhone().equals(seguridad.getIdSmartPhone())){
+                    return null;
+                }
             }
         }
         em.persist(seguridad);
