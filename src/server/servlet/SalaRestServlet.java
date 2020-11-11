@@ -191,14 +191,7 @@ public class SalaRestServlet {
                     data = mapper.writeValueAsString(votanteDni);
                 }  
             }
-        
-        try { 
             
-        } 
-        catch (JsonProcessingException e) {
-            return ResponseMessage
-                .message(502, "No se pudo dar formato a la salida", e.getMessage());
-        }
 
         return ResponseMessage.message(200,"Salas recuperadas con éxito",data);
     }
