@@ -73,8 +73,8 @@ public class Usuario {
     @Temporal(TemporalType.DATE)
     private Calendar fechaNacimiento;
 
-    @OneToOne(optional=false)
-    @JoinColumn(name="Ubicacion", unique=true, nullable=true, updatable=true)
+    @OneToOne(optional=false, cascade=CascadeType.ALL)
+    @JoinColumn(name="UBICACION_ID", unique=true, nullable=true, updatable=true)
     private UbicacionUsuario ubicacion;
 
     public int getId() {

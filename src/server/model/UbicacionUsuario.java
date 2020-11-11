@@ -33,8 +33,8 @@ public class UbicacionUsuario {
     @Column(name="longitude")
     private double longitude;
 
-    @OneToOne(optional=false, mappedBy="ubicacion")
-    private Usuario usuario;
+    // @OneToOne(optional=false, mappedBy="ubicacion")
+    // private Usuario usuario;
 
     public int getId() {
         return this.id;
@@ -60,8 +60,9 @@ public class UbicacionUsuario {
         this.longitude = longitude;
     }
 
+/*     @OneToOne(optional=false, mappedBy="ubicacion")
     public Usuario getUsuario() {
-        return this.usuario; 
-    }
+        return usuario; 
+    } */
 
 }
