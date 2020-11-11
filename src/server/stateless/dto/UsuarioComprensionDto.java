@@ -6,6 +6,7 @@ public class UsuarioComprensionDto{
     private String desdeApellido; 
     private String hastaApellido;
 
+
     public UsuarioComprensionDto() {
     }
 

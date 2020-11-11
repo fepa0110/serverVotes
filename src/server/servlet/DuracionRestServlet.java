@@ -47,7 +47,7 @@ public class DuracionRestServlet {
         mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
 
         // Le provee el formateador de fechas.
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mapper.setDateFormat(df);
     }
 
