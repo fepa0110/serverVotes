@@ -170,7 +170,7 @@ public class SalaRestServlet {
         Usuario usuario;
         Votante votante;
         VotanteDni votanteDni;
-        String data;
+        String data = "";
 
             sala = new Sala();
             sala.setId(sala_id);
