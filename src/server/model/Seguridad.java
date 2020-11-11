@@ -40,7 +40,7 @@ public class Seguridad {
 
    private String modeloSmartphone;
 
-   @Column(unique=true)
+   
    private String idSmartPhone;
 
 
