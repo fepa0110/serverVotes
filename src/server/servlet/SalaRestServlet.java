@@ -72,7 +72,7 @@ public class SalaRestServlet {
             // Se modifica este método para que utilice el servicio
         List<Sala> salas = salaService.findAll();
         for(Sala sala : salas){
-            sala.getUsuarios().setUbicacion(null);
+            sala.getUsuario().setUbicacion(null);
         }
 
         // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
