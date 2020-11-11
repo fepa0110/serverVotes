@@ -4,7 +4,9 @@
 
     <class>model.Sala</class>
     <class>model.EstadoSala</class>
+    <class>model.Duracion</class>
     <class>model.Usuario</class>
+    <class>model.UbicacionUsuario</class>
     <class>model.OPVotacion</class>
     <class>model.Votante</class>
     <class>model.VotanteDni</class>

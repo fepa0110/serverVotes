@@ -9,8 +9,10 @@ import javax.persistence.NamedQuery;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.OneToOne;
 
 import java.util.Set;
 import java.util.Calendar;
@@ -70,6 +72,10 @@ public class Usuario {
 
     @Temporal(TemporalType.DATE)
     private Calendar fechaNacimiento;
+
+    @OneToOne(optional=false)
+    @JoinColumn(name="Ubicacion", unique=true, nullable=true, updatable=true)
+    private UbicacionUsuario ubicacion;
 
     public int getId() {
         return this.id;
@@ -134,6 +140,14 @@ public class Usuario {
 
     public void setFechaNacimiento(Calendar fechaNacimiento){
         this.fechaNacimiento=fechaNacimiento;
+    }
+
+    public UbicacionUsuario getUbicacion() { 
+        return this.ubicacion; 
+    }
+
+    public void setUbicacion(UbicacionUsuario ubicacion){
+        this.ubicacion = ubicacion;
     }
 
 

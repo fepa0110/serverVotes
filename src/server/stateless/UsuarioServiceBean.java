@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.NoResultException;
 
 import model.Usuario;
+import model.UbicacionUsuario;
 import stateless.UsuarioService;
 
 @Stateless
@@ -143,6 +144,19 @@ public class UsuarioServiceBean implements UsuarioService {
     public Usuario autenticarUsuario(Usuario usuario){
         Usuario usuarioPersistido = this.findByLogin(usuario);
         return usuarioPersistido;
+    }
+
+    @Override
+    public Usuario addUbicacion(Usuario usuario){
+        UbicacionUsuario ubicacion = usuario.getUbicacion();
+        usuario = this.findByUsername(usuario);
+
+        if(usuario.getUbicacion() == null){
+            usuario.setUbicacion(ubicacion);
+            em.merge(usuario);
+            return usuario;
+        }
+        else return null;
     }
 
     @Override
