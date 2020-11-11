@@ -40,7 +40,9 @@ public class Duracion{
     private int id;
 
     @Temporal(TemporalType.DATE)
-    private Calendar fechaHora;
+    private Calendar fecha;
+
+    private String hora;
     
     @OneToOne(optional=false) 
     @JoinColumn(name="SALA_ID")
@@ -50,18 +52,25 @@ public class Duracion{
     public int getId() {
         return this.id;
     }
-  
-     public void setId(int id) {
+
+    public void setId(int id) {
         this.id = id;
     }
 
-
-    public Calendar getFechaHora(){
-        return this.fechaHora;
+    public Calendar getFecha() {
+        return this.fecha;
     }
 
-    public void setFechaHora(Calendar fechaHora){
-        this.fechaHora=fechaHora;
+    public void setFecha(Calendar fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getHora() {
+        return this.hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public Sala getSala() {
@@ -70,6 +79,8 @@ public class Duracion{
 
     public void setSala(Sala sala) {
         this.sala = sala;
-    }  
+    }
+
+
   
 }
