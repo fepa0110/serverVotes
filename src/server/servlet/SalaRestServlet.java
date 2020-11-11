@@ -67,10 +67,13 @@ public class SalaRestServlet {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String findAll() throws IOException{
+    public String findAll() throws IOException{       
 
             // Se modifica este método para que utilice el servicio
         List<Sala> salas = salaService.findAll();
+        for(Sala sala : salas){
+            sala.getUsuarios().setUbicacion(null);
+        }
 
         // Se contruye el resultado en base a lo recuperado desde la capa de negocio.
         String data;
