@@ -49,6 +49,19 @@ public class UsuarioFilterServiceBean implements UsuarioFilterService {
     @Override
     public List<Usuario> findByCompresion(UsuarioComprensionDto filtroComprension){
         try {
+            if(filtroComprension.getDesdeNombre() == null || filtroComprension.getDesdeNombre().isEmpty()){
+                filtroComprension.setDesdeNombre("A") ;
+            }
+            if(filtroComprension.getHastaNombre() == null || filtroComprension.getHastaNombre().isEmpty()){
+                filtroComprension.setHastaNombre("Z");
+            }
+            if(filtroComprension.getDesdeApellido() == null || filtroComprension.getDesdeApellido().isEmpty()){
+                filtroComprension.setDesdeApellido("A");
+            }
+            if(filtroComprension.getHastaApellido() == null || filtroComprension.getHastaApellido().isEmpty()){
+                filtroComprension.setHastaApellido("Z");
+            }
+
             return em.createQuery("SELECT usuario "+
                                 "FROM Usuario usuario "+
                                 "WHERE (UPPER(usuario.nombre) BETWEEN UPPER(:nombre_desde) "+ 

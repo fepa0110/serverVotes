@@ -68,6 +68,10 @@ public class UsuarioServiceBean implements UsuarioService {
             usuarioBuscado.setContrasenia(usuario.getContrasenia());
         } 
 
+        if(usuario.getUbicacion() != null){
+            usuarioBuscado.setUbicacion(usuario.getUbicacion());
+        } 
+
         //Actualizo el usuario en la base de datos
         em.merge(usuarioBuscado);
         return usuarioBuscado;
