@@ -163,6 +163,47 @@ public class SalaRestServlet {
     }
 
     @GET
+    @Path("/userVoto/{id}/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getVoto(@PathParam("id") int sala_id,@PathParam("userName") String userName) throws IOException {
+        Sala sala;
+        Usuario usuario;
+        Votante votante;
+        VotanteDni votanteDni;
+        String data;
+
+            sala = new Sala();
+            sala.setId(sala_id);
+            sala = salaService.findById(sala);
+
+            usuario = new Usuario();
+            usuario.setUsername(userName);
+            usuario = usuarioService.findByUsername(usuario);
+
+            votante = votanteService.findByVotante(sala, usuario);
+            if(votante != null){
+                    data = mapper.writeValueAsString(votante);
+            }
+
+            votanteDni = votanteDniService.findByVotante(sala, usuario);
+            if(votanteDni != null){ 
+                if(votanteDni.getVoto() == true){
+                    data = mapper.writeValueAsString(votanteDni);
+                }  
+            }
+        
+        try { 
+            
+        } 
+        catch (JsonProcessingException e) {
+            return ResponseMessage
+                .message(502, "No se pudo dar formato a la salida", e.getMessage());
+        }
+
+        return ResponseMessage.message(200,"Salas recuperadas con éxito",data);
+    }
+
+    @GET
     @Path("/user/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public String findAll(@PathParam("username") String username) throws IOException{
